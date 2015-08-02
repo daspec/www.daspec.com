@@ -6,9 +6,12 @@ waste precious time looking for items that simply are not available. Finally, th
 
 Assuming the following inventory:
 
-| Fifty Quick Ideas To Improve Your Tests| 20 |
-| Impact Mapping                         |  1 |
-| Specification by Example               |  0 |
+
+| Item                                   | Quantity |
+|----------------------------------------|----------|
+| Fifty Quick Ideas To Improve Your Tests|       20 |
+| Impact Mapping                         |        1 |
+| Specification by Example               |        0 |
 
 When a customer order with the following items is processed:
 
@@ -34,5 +37,7 @@ The customer will be alerted about shipping problems with the following items:
 
 The order will be associated with the exception queue for the following items
 
+| Item                     |
+|--------------------------|
 | Impact Mapping           |
 | Specification by Example |
