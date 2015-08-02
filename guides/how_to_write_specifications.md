@@ -18,5 +18,5 @@ Although DaSpec does not technically impose any limitations on what you can desc
   * [Explain the purpose in the introduction](idea_explain_why_intro.md)
   * [Focus on key examples](idea_focus_on_key_examples.md)
   * [Clearly separate inputs and outputs](idea_clearly_split_inputs_outputs.md)
-  * [Cover a single topic](idea_one_spec_one_topic.md)
+  * [Cover a single topic](idea_one_test_one_topic.md)
   * [Avoid mathematical formulas](idea_avoid_mathematical_formulas.md)
