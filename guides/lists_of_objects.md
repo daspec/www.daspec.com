@@ -15,7 +15,8 @@ To implement a matching step, define a matcher for text step as if there was no 
 * Sub-lists are currently not supported
 * If tables have a column header row, the column headers are separated out from the data, and used for matching (so items can even be in different column order)
   * table column headers are matched without considering letter case and spacing, so a column titled _Inventory Name_ will be matched with columns called _INVENTORY name_ or _inventoryName_. 
-  * column names have to be unique (considering the matching rules above) and may not be blank if they are used
+  * column names have to be unique (considering the matching rules above)
+  * all columns are required to have a name -- you cannot name some columns, and leave some column names blank
 * If tables do not contain header rows, then the entire table is processed as data, and matched left to right. 
 
 ## Writing tips 
