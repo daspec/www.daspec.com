@@ -1,4 +1,4 @@
-> This is a chapter from the book [Fifty Quick Ideas To Improve Your Tests](http://fiftyquickideas.com/fifty-quick-ideas-to-improve-your-tests/), used with permission from the authors. The content is copyrighted by Neuri Consulting LLP. 
+> This is a chapter from the book [Fifty Quick Ideas To Improve Your Tests](http://fiftyquickideas.com/fifty-quick-ideas-to-improve-your-tests/), used with permission from the authors. The content is copyrighted by Neuri Consulting LLP. For more information, see  
 
 #Clearly separate inputs and outputs
 

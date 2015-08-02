@@ -2,7 +2,7 @@
 
 #Focus on key examples
 
-![](images/mobi/key_examples.jpg)
+![](images/key_examples.jpg)
 
 User stories need clear, precise and testable acceptance criteria so that they
 can be objectively measured. At the same time, regardless of how many scenarios
