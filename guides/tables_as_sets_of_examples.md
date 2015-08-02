@@ -4,7 +4,7 @@ To show state machine transitions, or calculation rules that depend on several i
 
 When table rows represent individual examples, just create a heading row for a table listing the column names, and add a step definition that will match that column row. Make sure that the line directly above the table is either a heading or a comment, and not a regular text line.  (Tables with an executable text line are not processed as sets of individual examples, but as [lists of objects](tables_as_lists_of_objects.md)).
 
-[Example: Tables As Sets Of Examples](examples/tables_as_sets_of_examples.md)
+[Example: Tables As Sets Of Examples](../examples/tables_as_sets_of_examples.md)
 
 ## Step implementation
 
