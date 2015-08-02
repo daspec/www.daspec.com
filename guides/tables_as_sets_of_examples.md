@@ -2,7 +2,7 @@
 
 To show state machine transitions, or calculation rules that depend on several inputs and potentially produce several outputs, use tables. Tables are a natural way of capturing such rules, because they can visually show the relationship of inputs and outputs and make it easy to see impacts of individual variables. Tables also make it easy to group related information together.
 
-When table rows represent individual examples, just create a heading row for a table listing the column names, and add a step definition that will match that column row. Make sure that the line directly above the table is either a heading or a comment, and not a regular text line.  (Tables with an executable text line are not processed as sets of individual examples, but as [lists of objects](tables_as_lists_of_objects.html)).
+When table rows represent individual examples, just create a heading row for a table listing the column names, and add a step definition that will match that column row. Make sure that the line directly above the table is either a heading or a comment, and not a regular text line.  (Tables with an executable text line are not processed as sets of individual examples, but as [lists of objects](tables_as_lists_of_objects.md)).
 
 [Example: Tables As Sets Of Examples](examples/tables_as_sets_of_examples.md)
 
