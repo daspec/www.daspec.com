@@ -89,7 +89,7 @@ block can be replaced by a single higher-level action, such as:
 
     When the payroll is processed
 
-See the section on [_Describe what, not how_](specify_what_not_how.mkd) for some
+See the section on [_Describe what, not how_](idea_specify_what_not_how.md) for some
 ideas on how to deal with such cases. 
 
 If a test executes multiple interdependent actions because they rely on
