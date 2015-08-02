@@ -8,7 +8,7 @@ Tables and lists that follow an executable text step are passed to the related s
 
 ## Step implementation
 
-To implement a matching step, define a matcher for the entire table header row (column titles). The assigned step processor will be called for all table data rows, from top to bottom. The arguments to the step processor will be cell values, in sequence from left to right. If the regular expression for the table header has matching groups, they will be passed to the processor after the cell values. 
+To implement a matching step, define a matcher for text step as if there was no table or a list after it. The table or list will be passed to the processor function as the final argument, after all the matching group arguments. 
 
 # Writing tips 
 
