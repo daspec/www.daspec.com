@@ -10,12 +10,21 @@ Tables and lists that follow an executable text step are passed to the related s
 
 To implement a matching step, define a matcher for text step as if there was no table or a list after it. The table or list will be passed to the processor function as the final argument, after all the matching group arguments. 
 
-# Writing tips 
+## Limitations 
 
-There are no specific requirements from DaSpec for naming organising table information, but the following writing tips will help your readers get the most out of the specification: 
+* Sub-lists are currently not supported
+* If tables have a column header row, the column headers are separated out from the data, and used for matching (so items can even be in different column order)
+  * table column headers are matched without considering letter case and spacing, so a column titled _Inventory Name_ will be matched with columns called _INVENTORY name_ or _inventoryName_. 
+  * column names have to be unique (considering the matching rules above) and may not be blank if they are used
+* If tables do not contain header rows, then the entire table is processed as data, and matched left to right. 
 
-* When objects in the list have several important properties, tables can visually group the related information together nicely.
+## Writing tips 
+
+The following writing tips will help your readers get the most out of the specification: 
+
+* When objects in the list have several important properties, use tables to visually group the related information together nicely.
 * If you only want to show a single property (such as the item name), use lists instead. 
 * If you want to show a list where order is important, use numbered lists. If the order is not important, use bullet-lists.
 * It's a good practice to formulate the steps so that it is clear if the lists are inputs or expected outputs. For example, use past tense to show inputs, and future tense to show outputs. Alternatively, formulate the example as Given _some inputs_, ... Then _some outputs_.
 * When using tables, make the first column something that readers can easily use to identify the entire row -- for example the item name, or unique ID. This will make it easier to understand and troubleshoot examples. In the future, DaSpec will also use partial matching from left to right, so it will be able to report on single attribute differences better than failing an entire row.
+* When using tables, specify a title row with column names. This will make it easier to identify and match items, and it will also make sure that your markdown renders well in most markdown processing tools. DaSpec will work even without column names, but other tools may not.
