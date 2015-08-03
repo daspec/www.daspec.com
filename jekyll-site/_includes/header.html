@@ -1,39 +1,47 @@
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="/"><img src="/assets/logo.png"/></a>
-            <ul class="nav">
-              <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              About DaSpec 
-              <b class="caret"></b>
-              </a>
-               <ul class="dropdown-menu">
-                <li><a href="/guides/how_to_write_specifications.html">How to write specifications with DaSpec</a></li>
-                <li><a href="/guides/lists_of_objects.html">Work with lists of objects</a></li>
-                <li><a href="/guides/tables_as_sets_of_examples.html">Group related examples into tables</a></li>
-              </ul>
-            </li>
-            <li>
-            <a href="#">Install</a>
-            </li>
-             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Syntax examples
-              <b class="caret"></b>
-              </a>
-               <ul class="dropdown-menu">
-                <li><a href="/examples/tables_as_lists_of_objects.html">Tables as list of objects</a></li>
-                <li><a href="/examples/tables_as_sets_of_examples.html">Tables as sets of examples</a></li>
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav pull-right">
-              <li><a href="/contact.html">Contact</a></li>
-              <li>
-                <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a>
-              </li>              
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="/" class="navbar-brand">DaSpec</a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="nav1">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          About DaSpec 
+          <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="/guides/how_to_write_specifications.html">How to write specifications with DaSpec</a></li>
+          <li><a href="/guides/lists_of_objects.html">Work with lists of objects</a></li>
+          <li><a href="/guides/tables_as_sets_of_examples.html">Group related examples into tables</a></li>
+        </ul>
+        </li>
+        <li>
+        <a href="#">Install</a>
+        </li>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          Syntax examples
+          <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="/examples/tables_as_lists_of_objects.html">Tables as list of objects</a></li>
+          <li><a href="/examples/tables_as_sets_of_examples.html">Tables as sets of examples</a></li>
+        </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/contact.html">Contact</a></li>
+        <li>
+        <a href="{{ "/feed.xml" | prepend: site.baseurl }}">RSS</a>
+        </li>              
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>

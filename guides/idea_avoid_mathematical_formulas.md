@@ -1,3 +1,5 @@
+> This is a chapter from the book [Fifty Quick Ideas To Improve Your Tests](http://fiftyquickideas.com/fifty-quick-ideas-to-improve-your-tests/), used with permission from the authors. The content is copyrighted by Neuri Consulting LLP. 
+
 #Avoid mathematical formulas 
 
 ![](images/avoid_mathematical_formulas_novo.jpg)
