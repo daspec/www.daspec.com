@@ -1,21 +1,40 @@
 ---
 layout: page 
 ---
+<div>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#spec" role="tab" data-toggle="tab">Specification</a></li>
+    <li ><a href="#steps" role="tab" data-toggle="tab">Step definitions</a></li>
+	<li ><a href="#sut" role="tab" data-toggle="tab">System under test</a></li>
+	<li ><a id="runButton" href="#result" role="tab" data-toggle="tab">Result</a></li>
 
-		<h2>Markdown</h2>
-<textarea id="markdownArea" style="width:80%; min-height:50px; border:1px dashed grey; margin-bottom:20px; padding:5px">
+  </ul>
+ <div class="tab-content">
+	 <div role="tabpanel" class="tab-pane fade in active" id="spec">
+<textarea id="markdownArea" class="examples">
 {% include {{page.example | prepend: 'examples/'  |  append: '.txt' }} %}
 </textarea>
-		<br/>
-<textarea id="scriptArea" style="width:80%; min-height:50px; border:1px dashed grey; margin-bottom:20px; padding:5px">
-{% include {{page.example | prepend: 'examples/'  |  append: '.js' }} %}
+	 </div>
+	 <div role="tabpanel" class="tab-pane fade" id="steps">
+<textarea id="stepsArea" class="examples">
+{% include {{page.example | prepend: 'examples/'  |  append: '-steps.js' }} %}
 </textarea>
-    <br/>
-		<button id="runButton" style="margin:10px;">Run DaSpec</button>
-		<h2>Result:</h2>
-		<div id="outputArea" style=" font-family: monospace; white-space: pre; width:80%; min-height:50px; border:1px dashed grey; margin-top:20px; padding:5px">
+	</div>
+	 <div role="tabpanel" class="tab-pane fade" id="sut">
+<textarea id="sutArea" class="examples">
+{% include {{page.example | prepend: 'examples/'  |  append: '-sut.js' }} %}
+</textarea>
 
+	 </div>
+	 <div role="tabpanel" class="tab-pane fade" id="result">
+		<div id="outputArea" class="examples">
 		</div>
+	 </div>
+ </div>
+</div>
+
+
+
 
 <script type="text/javascript" src="/lib/daspec-web.js"></script>
 <script type="text/javascript">
@@ -23,23 +42,24 @@ layout: page
 var runButton = document.getElementById('runButton'),
 	markdownArea = document.getElementById('markdownArea'),
 	outputArea = document.getElementById('outputArea'),
-	scriptArea = document.getElementById('scriptArea');
+	stepsArea = document.getElementById('stepsArea');
+	sutArea = document.getElementById('sutArea'),
+	rerun = function () {
+		'use strict';
+		var defineSteps = function (context) {
+			window.defineStep = context.defineStep;
+			eval(sutArea.value + '\n' + stepsArea.value);
+		},
+			runner = new DaSpec.Runner(defineSteps),
+			result;
+		try {
+			result = runner.example(markdownArea.value);
+			$('#outputArea').text(result);
+		} catch (e) {
+			$('#outputArea').text((e.name || '') + ' ' + (e.message || '') + ' ' +  (e.stack || '') );
+		}
+	};
 
 
-runButton.addEventListener('click', function () {
-	'use strict';
-    var defineSteps = function (context) {
-      window.defineStep = context.defineStep;
-      eval(scriptArea.value);
-        
-    },
-	runner = new DaSpec.Runner(defineSteps),
-    result;
-  try {
-		result = runner.example(markdownArea.value);
-	  $('#outputArea').text(result);
-  } catch (e) {
-	  $('#outputArea').text((e.name || '') + ' ' + (e.message || '') + ' ' +  (e.stack || '') );
-  }
-});
+runButton.addEventListener('click', rerun);
 </script>
