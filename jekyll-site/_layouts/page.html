@@ -1,0 +1,50 @@
+---
+layout: default 
+---
+  <div class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+         <div class="navbar-header">
+      <a href="/" class="navbar-brand">Fifty Quick Ideas</a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+        <div class="navbar-collapse collapse" id="nav1">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Books <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/fifty-quick-ideas-to-improve-your-user-stories">Fifty Quick Ideas To Improve Your User Stories</a></li>
+                <li><a href="/fifty-quick-ideas-to-improve-your-tests">Fifty Quick Ideas To Improve Your Tests</a></li>
+                <li><a href="/fifty-quick-ideas-to-improve-your-retrospectives">Fifty Quick Ideas To Improve Your Retrospectives</a></li>
+                <li><a href="http://www.impactmapping.org">Impact Mapping</a></li>
+              </ul>
+            </li>
+            <li><a href="/playing-cards">Playing Cards</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">News and Updates <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="http://bit.ly/gojkoImpact">Discounts for upcoming books</a></li>
+
+        <li><a href="https://groups.google.com/forum/#!forum/50quickideas">Discussion group on Google</a></li>
+        <li><a href="https://twitter.com/{{site.twitter}}">Twitter</a></li>
+        <li><a href="http://facebook.com/{{site.facebook_page}}">Facebook</a></li>
+        <li><a href="https://plus.google.com/{{site.gplus}}" rel="publisher">Google+</a></li>
+
+
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="mailto:{{ site.email }}">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container marketing">
+      {{ content }}
+      <!-- FOOTER -->
+    </div><!-- /.container -->

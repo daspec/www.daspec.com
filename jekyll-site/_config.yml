@@ -1,0 +1,18 @@
+# Site settings
+
+title: DaSpec -- Awesome executable specifications in Markdown
+email: contact@daspec.com
+description: > # this means to ignore newlines until "baseurl:"
+  DaSpec -- Awesome executable specifications in Markdown. Create living documentation for your software,
+  and improve shared understanding between delivery teams and business domain expers using 
+  BDD and specification by example.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://daspec.com" # the base hostname & protocol for your site
+twitter_username: indaspec
+github_username:  daspec
+ga_code: UA-65898959-1
+copyright: Sauf Pompiers Ltd
+google_group: daspec
+
+# Build settings
+markdown: kramdown

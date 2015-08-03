@@ -1,0 +1,19 @@
+<head>
+  <meta charset="utf-8">
+  <title>{% if page.title %}{{ page.title }} -- {% endif %}{{ site.title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="daspec, bdd, atdd, specification by example, spec by example" />
+  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+  <meta name="author" content="{{ site.copyright }}">
+  <link href="/lib/bootstrap-3.2.0/css/bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
+  <!--
+  <link rel="apple-touch-icon" href="/assets/logo.png">
+  <link rel="apple-touch-icon-precomposed" href="/assets/logo.png">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  -->
+  <meta name="twitter:site" content="@<%=settings.twitter%>">
+  <meta name="twitter:creator" content="@<%=settings.twitter%>">
+</head>
