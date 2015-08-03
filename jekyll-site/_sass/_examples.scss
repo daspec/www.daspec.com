@@ -1,0 +1,25 @@
+.examples {
+	width:100%; 
+	min-height:500px; 
+	border:1px dashed grey; 
+	margin-bottom:20px; 
+	padding:5px;
+	margin-top: 10px;
+	clear: both;
+}
+
+.code { 
+	font-family: monospace; 
+	white-space: pre; 
+}
+
+input[format=html]:checked ~ [visible-format]:not([visible-format=html]) {
+	display: none;
+}
+input[format=md]:checked ~ [visible-format]:not([visible-format=md]) {
+	display: none;
+}
+
+.tab-pane {
+	padding-top: 10px;
+}
