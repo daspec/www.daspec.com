@@ -1,5 +1,5 @@
 ---
-layout: default 
+layout: page 
 ---
 
 		<h2>Markdown</h2>
@@ -22,20 +22,21 @@ layout: default
 	/*global document, DaSpec, localStorage*/
 var runButton = document.getElementById('runButton'),
 	markdownArea = document.getElementById('markdownArea'),
-	outputArea = document.getElementById('outputArea');
+	outputArea = document.getElementById('outputArea'),
+	scriptArea = document.getElementById('scriptArea');
+
 
 runButton.addEventListener('click', function () {
 	'use strict';
-	var md = markdownArea.value,
-    defineSteps = function (context) {
+    var defineSteps = function (context) {
       window.defineStep = context.defineStep;
-      eval($('#scriptArea').text());
+      eval(scriptArea.value);
         
     },
-		runner = new DaSpec.Runner(defineSteps),
+	runner = new DaSpec.Runner(defineSteps),
     result;
   try {
-		result = runner.example(md);
+		result = runner.example(markdownArea.value);
 	  $('#outputArea').text(result);
   } catch (e) {
 	  $('#outputArea').text((e.name || '') + ' ' + (e.message || '') + ' ' +  (e.stack || '') );

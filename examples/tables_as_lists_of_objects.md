@@ -43,4 +43,4 @@ The following items will be added to the exception queue:
 | Item                                    | Quantity |
 |-----------------------------------------|----------|
 | Specification by Example                | 4        |
-| Impact Mapping                          | 3        |
+| Impact Mapping                          | 2        |
