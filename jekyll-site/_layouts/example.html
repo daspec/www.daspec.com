@@ -1,0 +1,44 @@
+---
+layout: default 
+---
+
+		<h2>Markdown</h2>
+<textarea id="markdownArea" style="width:80%; min-height:50px; border:1px dashed grey; margin-bottom:20px; padding:5px">
+{% include {{page.example | prepend: 'examples/'  |  append: '.txt' }} %}
+</textarea>
+		<br/>
+<textarea id="scriptArea" style="width:80%; min-height:50px; border:1px dashed grey; margin-bottom:20px; padding:5px">
+{% include {{page.example | prepend: 'examples/'  |  append: '.js' }} %}
+</textarea>
+    <br/>
+		<button id="runButton" style="margin:10px;">Run DaSpec</button>
+		<h2>Result:</h2>
+		<div id="outputArea" style=" font-family: monospace; white-space: pre; width:80%; min-height:50px; border:1px dashed grey; margin-top:20px; padding:5px">
+
+		</div>
+
+<script type="text/javascript" src="/lib/daspec-web.js"></script>
+<script type="text/javascript">
+	/*global document, DaSpec, localStorage*/
+var runButton = document.getElementById('runButton'),
+	markdownArea = document.getElementById('markdownArea'),
+	outputArea = document.getElementById('outputArea');
+
+runButton.addEventListener('click', function () {
+	'use strict';
+	var md = markdownArea.value,
+    defineSteps = function (context) {
+      window.defineStep = context.defineStep;
+      eval($('#scriptArea').text());
+        
+    },
+		runner = new DaSpec.Runner(defineSteps),
+    result;
+  try {
+		result = runner.example(md);
+	  $('#outputArea').text(result);
+  } catch (e) {
+	  $('#outputArea').text((e.name || '') + ' ' + (e.message || '') + ' ' +  (e.stack || '') );
+  }
+});
+</script>
