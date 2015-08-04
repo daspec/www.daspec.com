@@ -1,16 +1,20 @@
 # Group related examples into tables
 
-To show state machine transitions, or calculation rules that depend on several inputs and potentially produce several outputs, use tables. Tables are a natural way of capturing such rules, because they can visually show the relationship of inputs and outputs and make it easy to see impacts of individual variables. Tables also make it easy to group related information together.
+To show state machine transitions, or calculation rules that depend on several inputs and potentially produce several outputs, use tables. Tables are a natural way to capture such rules, because they can visually show the relationship of inputs and outputs and make it easy to see impacts of individual variables. Tables also make it easy to group related information together.
 
-When table rows represent individual examples, just create a heading row for a table listing the column names, and add a step definition that will match that column row. Make sure that the line directly above the table is either a heading or a comment, and not a regular text line.  (Tables with an executable text line are not processed as sets of individual examples, but as [lists of objects](lists_of_objects.md)).
+When you want table rows to represent individual examples, do this:
 
-[Example: Tables As Sets Of Examples](../examples/tables_as_sets_of_examples.md)
+ 1. Make a table with a heading row, containing column names. 
+ 2. List example values as rows in the table
+ 3. Ensure that the first non-empty line directly above the table is not an executable step. (Tables preceded by an executable text line are not processed as sets of individual examples, but as [lists of objects](lists_of_objects.md)). For example, use a heading (line starting with #) or a blockquote (line starting with >).
+
+[Example: Tables As Sets Of Examples](../examples/tables_as_sets_of_examples)
 
 ## Step implementation
 
-To implement a matching step, define a matcher for the entire table header row (column titles). The assigned step processor will be called for all table data rows, from top to bottom. The arguments to the step processor will be cell values, in sequence from left to right. If the regular expression for the table header has matching groups, they will be passed to the processor after the cell values. 
+To implement a matching step, define a matcher for the entire table header row (column titles). The assigned step processor will be called for all table data rows, from top to bottom. The arguments to the step processor will be cell values, in the sequence from left to right. If the regular expression for the table header has matching groups, they will be passed to the processor after the cell values. 
 
-# Writing tips 
+## Writing tips 
 
 There are no specific requirements from DaSpec for naming organising table information, but the following writing tips will help your readers get the most out of the spec 
 

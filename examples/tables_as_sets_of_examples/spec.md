@@ -8,7 +8,7 @@
 
 ## If the majority choice is within EU, use it
 
-| IP-address Country |  Billing Country | Delivery Country | Use EU Vat? | Expected EU VAT Country  |
+| IP-address Country |  Billing Country | Delivery Country | Use EU VAT? | Expected EU VAT Country  |
 |--------------------|------------------|------------------|-------------|--------------------------|
 | GB                 | GB               | GB               | Yes         | GB                       |
 | FR                 | GB               | GB               | Yes         | GB                       |
