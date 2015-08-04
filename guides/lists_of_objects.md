@@ -4,7 +4,7 @@ To show how a list of related objects is processed or evaluate an operation on a
 
 Tables and lists that follow an executable text step are passed to the related step execution function as a single argument, rather than evaluated line-by-line. You can then use the list of objects to pre-populate a database, or compare lists to expectations. DaSpec will report missing, additional and matching items in a way that is easy to read and understand.
 
-[Example: Tables As Lists Of Objects](../examples/tables_as_lists_of_objects/README.md)
+[Example: Tables As Lists Of Objects](../examples/tables_as_lists_of_objects)
 
 ## Step implementation
 
