@@ -15,7 +15,7 @@ title: $title
 layout: page 
 ---
 EOF
-  sed s/\.md\)/\.html\)/g $c >> $dest/$c
+  sed s/\\/README.md\)/.html\)/g  $c | sed s/\.md\)/\.html\)/g >> $dest/$c
 done
 
 
@@ -34,7 +34,7 @@ example: $example
 ---
 EOF
 
-sed s/\.md\)/\.html\)/g $c/README.md >>  $dest/examples/$example.md
+sed s/\\/README.md\)/.html\)/g $c/README.md |sed s/\.md\)/\.html\)/g >>  $dest/examples/$example.md
 done
 
 cp -r examples $dest/_includes
