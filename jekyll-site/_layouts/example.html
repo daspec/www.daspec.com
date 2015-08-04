@@ -2,6 +2,9 @@
 layout: page 
 
 ---
+<div class="alert alert-block alert-info">
+{{content}}
+</div>
 <div>
   <ul class="nav nav-tabs" role="tablist">
     <li class="active"><a href="#spec" role="tab" data-toggle="tab">Specification</a></li>
@@ -21,7 +24,7 @@ layout: page
 	 <input type="radio" name="source-format" format="md"> Markdown <br/>
 
 <textarea id="markdownArea" class="examples code" visible-format="md">
-{% include {{page.example | prepend: 'examples/'  |  append: '.txt' }} %}
+{% include {{page.example | prepend: 'examples/'  |  append: '/spec.md' }} %}
 </textarea>
 <div id="formattedMarkdownArea" class="examples" visible-format="html">
 </div>
@@ -34,7 +37,7 @@ layout: page
 	by switching to the Result tab to see the effects.
 </span><br/>
 <textarea id="stepsArea" class="examples code">
-{% include {{page.example | prepend: 'examples/'  |  append: '-steps.js' }} %}
+{% include {{page.example | prepend: 'examples/'  |  append: '/steps.js' }} %}
 </textarea>
 	</div>
 	 <div role="tabpanel" class="tab-pane fade" id="sut">
@@ -44,7 +47,7 @@ layout: page
 	by switching to the Result tab to see the effects.
 </span><br/>
 <textarea id="sutArea" class="examples code">
-{% include {{page.example | prepend: 'examples/'  |  append: '-sut.js' }} %}
+{% include {{page.example | prepend: 'examples/'  |  append: '/under-test.js' }} %}
 </textarea>
 	 </div>
 	 <div role="tabpanel" class="tab-pane fade" id="result">

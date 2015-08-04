@@ -23,10 +23,10 @@ done
 mkdir $dest/examples
 mkdir $dest/_includes/examples
 
-for c in examples/*.md; do \
-  example=`basename $c .md`
+for c in examples/*; do \
+  example=`basename $c`
   title=`echo $example | sed 's/_/ /g'`
-  cat > $dest/$c  << EOF 
+  cat > $dest/examples/$example.md  << EOF 
 ---
 title: $title
 layout: example 
@@ -34,10 +34,10 @@ example: $example
 ---
 EOF
 
-cp $c $dest/_includes/examples/$example.txt
+sed s/\.md\)/\.html\)/g $c/README.md >>  $dest/examples/$example.md
 done
 
-cp examples/*.js $dest/_includes/examples
+cp -r examples $dest/_includes
 
 cd $dest
 jekyll build
