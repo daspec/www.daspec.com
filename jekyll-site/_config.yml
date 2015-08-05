@@ -13,6 +13,6 @@ github_username:  daspec
 ga_code: UA-65898959-1
 copyright: Sauf Pompiers Ltd
 google_group: daspec
-
+categories: [basic, advanced] 
 # Build settings
 markdown: kramdown

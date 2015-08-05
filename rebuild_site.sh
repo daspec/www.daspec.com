@@ -15,7 +15,7 @@ title: $title
 layout: page 
 ---
 EOF
- sed 's/\((.*\/examples\/[^)]*\)/\1.html/' $c | sed s/\.md\)/\.html\)/g >> $dest/$c
+sed -e 's/([^)]*\/examples)/(\/try.html)/' -e 's/\(([^)]*\/examples\/[^)]*\)/\1.html/' -e s/\.md\)/\.html\)/g $c >> $dest/$c
 done
 
 
@@ -31,6 +31,7 @@ for c in examples/*; do \
 title: $title
 layout: example 
 example: $example
+categories: [basic]
 ---
 EOF
 
