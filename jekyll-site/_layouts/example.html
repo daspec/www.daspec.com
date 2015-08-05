@@ -85,13 +85,12 @@ window.addEventListener('load', function () {
 				window.defineStep = context.defineStep;
 				eval(sutArea.value + '\n' + stepsArea.value);
 			},
-				runner = new DaSpec.Runner(defineSteps),
-				result;
+      runner, result;
 			try {
+        runner = new DaSpec.Runner(defineSteps),
 				result = runner.example(markdownArea.value);
-
 			} catch (e) {
-				result = '    ' + (e.name || '') + ' ' + (e.message || '') + ' ' +  (e.stack || '');
+				result = '    ' + (e.stack || e.message || e.name || 'there was a problem executing the specification');
 			}
 			$('#outputArea').text(result);
 			formattedOutputArea.innerHTML = converter.makeHtml(result);
