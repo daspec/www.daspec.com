@@ -11,7 +11,7 @@ The most frequent use case for Executable Specifications is to support Specifica
 
 ## Advantages
 
-This approach is particularly successful for managing requirements and functional tests on large-scale projects of significant domain and organisational complexity. Successful application of Specification by example is [documented](http://www.amazon.com/gp/product/1617290084/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1617290084&linkCode=as2&tag=swingwiki-20&linkId=CSYZSYLB42HJ7GSF) to significantly reduce feedback loops in software development, leading to less rework, higher product quality, faster turnaround time for software changes and better alignment of activities of various roles involved in software development such as testers, analysts and developers.
+This approach is particularly successful for managing requirements and functional tests on large-scale projects of significant domain and organisational complexity. Successful application of Specification by example is [documented](http://amzn.to/1UnTzSJ) to significantly reduce feedback loops in software development, leading to less rework, higher product quality, faster turnaround time for software changes and better alignment of activities of various roles involved in software development such as testers, analysts and developers.
 
 ##How do Executable Specifications fit into testing?
 
@@ -29,7 +29,7 @@ For the best results, get a cross-functional group of people together around a w
 
 Try to capture the perspectives of domain experts, testers and developers with the key examples (so don't just focus on the happy cases - key examples means that all critical perspectives should be covered). 
 
-Once you've agreed on the key examples, you can refine and capture them as an Executable Specification. For tips on how to do this effectively with DaSpec, check out the [Good specification/test design guidelines](how_to_write_specifications.html).
+Once you've agreed on the key examples, you can refine and capture them as an Executable Specification. For tips on how to do this effectively with DaSpec, check out the [Good specification/test design guidelines](how_to_write_specifications.md).
 
 ##Resources for further research
 
