@@ -15,7 +15,10 @@ title: $title
 layout: page 
 ---
 EOF
-sed -e 's/([^)]*\/examples)/(\/try.html)/' -e 's/\(([^)]*\/examples\/[^)]*\)/\1.html/' -e s/\.md\)/\.html\)/g $c >> $dest/$c
+sed -e 's/([^)]*\/examples)/(\/try.html)/' \
+    -e 's/\(([^)]*\/examples\/[^)]*\)/\1.html/' \
+    -e 's/"\([^"]*\/examples\/[^"]*\)/"\1.html/' \
+    -e s/\.md\)/\.html\)/g $c >> $dest/$c
 done
 
 
@@ -26,12 +29,18 @@ mkdir $dest/_includes/examples
 for c in examples/*; do \
   example=`basename $c`
   title=`echo $example | sed 's/_/ /g'`
+
+  if [ $example == "hello_world" ]; then 
+    categories="hello"
+  else 
+    categories="basic"
+  fi
   cat > $dest/examples/$example.md  << EOF 
 ---
 title: $title
 layout: example 
 example: $example
-categories: [basic]
+categories: [$categories]
 ---
 EOF
 

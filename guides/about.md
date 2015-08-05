@@ -1,4 +1,4 @@
-#What is DaSpec?
+# What is DaSpec?
 
 DaSpec is an automation framework for [Executable Specifications](executable_specifications.md) in Markdown. It can help you:
 
@@ -11,13 +11,13 @@ DaSpec helps teams achieve those benefits by validating human-readable documents
 
 DaSpec's primary target are teams practising Behaviour Driven Development, Specification by Example, ATDD and generally running short, frequent delivery cycles with a heavy dependency on test automation. It can, however, be useful to anyone looking to reduce the cost of discovering outdated information in documentation and tests. 
 
-##How does DaSpec work?
+## How does DaSpec work?
 
 DaSpec parses human-readable documents, in markdown format, and pulls out examples and test data. It then passes that information to the system under test using a simple integration API, comparing the expected results with the actual outcomes and converting the test results back to a nice markdown-formatted output. It does the heavy lifting of document parsing, format conversions and test reporting, leaving you with a relatively simple task of implementing the integration points to your system.
 
 For a very simple example, see the [Hello World Walkthrough](hello_world.md). For more realistic examples see the [Key Features](../examples).
 
-##Why Markdown?
+## Why Markdown?
 
 **It's easy to write**: Markdown is a simple, intuitive format, based on plain text. You can use any editor to write it, and there are plenty of good Markdown authoring tools out there.
 
@@ -25,13 +25,13 @@ For a very simple example, see the [Hello World Walkthrough](hello_world.md). Fo
 
 **It fits in well into modern development processes**: Markdown is a pure text file format, which means your documents will work well with version control and continuous integration. It is easy to branch, merge and diff documents written in markdown, unlike many popular rich document formats. It's easy to resolve conflicts. It's easy to change it frequently, and most version control tools will be able to even merge concurrent updates from different people.
 
-##What can be automated with DaSpec?
+## What can be automated with DaSpec?
 
 In theory, anything. The integration point that DaSpec uses to interpret the examples is under your control. So you can store data into databases and query them, execute web requests to remote servers, or just load a simple class and connect to it by calling its methods directly.
 
 At the moment, DaSpec only supports JavaScript (both in browser and from NodeJS). We plan to port it to other major platforms soon.
 
-##How does DaSpec compare with alternative tools?
+## How does DaSpec compare with alternative tools?
 
 DaSpec is inspired heavily by [FIT](http://fit.c2.com/), [FitNesse](http://www.fitnesse.org), [Concordion](http://concordion.org/) and [Cucumber](https://cucumber.io/). In many ways, it's trying to combine the best ideas from those tools, baking in learning from ten years of working with various teams, from world's biggest investment banks to small web startups.
 
