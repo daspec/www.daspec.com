@@ -32,11 +32,9 @@ DaSpec does all the heavy lifting of format conversions and parsing -- all you h
 
 To make things a bit more concrete, we'll be executing a specification against a JavaScript function. For this example, a simple string concatenator will do, but in real projects this will be your domain services, utility functions, API endpoints, or some other piece of code you want to check. 
 
-````javascript
-function greetingFor (subject) {
-	return 'Hello, ' + subject + '!';
-}
-````
+    function greetingFor (subject) {
+	    return 'Hello, ' + subject + '!';
+    }
 
 ## Specification
 
@@ -45,12 +43,9 @@ The specification document explains what you expect the system under test to do.
 DaSpec can work on any MarkDown document, so you can explain the context nicely, include links to external resources and other specifications, even cross-link specifications. Any headers, block-quotes, lines with images and footnotes are just ignored. The remaining lines - plain text, links and tables, are parsed for examples to execute. In the Markdown syntax, a line starting with a hash (#) is a heading. So in the example below, the first line will be ignored and just copied to the output, and the second line will be executed.
 
 
-````
-# this is a heading 
+    # this is a heading 
 
-The right way to greet the World is "Hello, World!"
-
-````
+    The right way to greet the World is "Hello, World!"
 
 Use headings and block-quotes to explain the purpose of the examples and help readers understand them better.
 
@@ -61,12 +56,10 @@ To enable DaSpec to connect to the system under test, we need to give it a text 
 
 The function __defineStep__ has two arguments. The first one is the regular expression that will match the line, with groups in brackets to match the arguments and expectations. The second argument of __defineStep__ is a JavaScript function that will receive the extracted parameters and evaluate them.
 
-````javascript
-defineStep(/The right way to greet the (.*) is "(.*)"/, function (subject, expectedGreeting) {
-	var actualResult = greetingFor(subject);
-	this.assertEquals(expectedGreeting, actualResult, 1);
-});
-````
+    defineStep(/The right way to greet the (.*) is "(.*)"/, function (subject, expectedGreeting) {
+    	var actualResult = greetingFor(subject);
+    	this.assertEquals(expectedGreeting, actualResult, 1);
+    });
 
 In this example, we're providing a definition for a step that will execute any lines matching __The right way to greet the ... is "..."__ format. The __(.*)__ syntax in a regular expression means any group of characters. So this step definition will also work for lines such as __The right way to greet the Sun is "Hello, Sun!"__ and similar. 
 

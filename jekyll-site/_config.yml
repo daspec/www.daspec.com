@@ -9,13 +9,11 @@ description: > # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://daspec.com" # the base hostname & protocol for your site
 twitter_username: indaspec
-github_username:  daspec
-github_repo:  daspec-js
+github_username: daspec
+github_repo: daspec-js
 ga_code: UA-65898959-1
 copyright: Sauf Pompiers Ltd
 google_group: daspec
 categories: [basic, advanced, hello] 
 # Build settings
 markdown: kramdown
-kramdown:
-  input: GFM

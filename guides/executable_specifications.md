@@ -1,4 +1,4 @@
-#Executable Specifications
+# Executable Specifications
 
 Executable Specifications, simply put, are documents explaining a software system that can automatically be executed -- validated against the software that they are explaining. The three popular usages for such documents are:
 
@@ -13,7 +13,7 @@ The most frequent use case for Executable Specifications is to support Specifica
 
 This approach is particularly successful for managing requirements and functional tests on large-scale projects of significant domain and organisational complexity. Successful application of Specification by example is [documented](http://amzn.to/1UnTzSJ) to significantly reduce feedback loops in software development, leading to less rework, higher product quality, faster turnaround time for software changes and better alignment of activities of various roles involved in software development such as testers, analysts and developers.
 
-##How do Executable Specifications fit into testing?
+## How do Executable Specifications fit into testing?
 
 Executable specifications can be a very effective way to capture the expectations of various team members and stakeholders and provide evidence that those aspects of a system were validated.
 
@@ -23,7 +23,7 @@ In the context-driven testing terminology, they can be an effective way for the 
 
 On the spectrum of tests that a team might consider, executable specifications are most useful for the business-oriented tests checking for expected outcomes -- the upper-right corner of the testing quadrants. For tests looking at things from a technical perspective, all the interested readers know the relevant programming language and testing tools, so it's easier and faster to just use a technical tool, typically the unit testing framework that the team is familiar with. For tests looking at non-deterministic and exploring unexpected results, it's not practical to capture the expectations (otherwise they would be expected outcomes), so any kind of automation would not be looking at the system from the right perspective.
 
-##How to get the most out of Executable Specifications?
+## How to get the most out of Executable Specifications?
 
 For the best results, get a cross-functional group of people together around a whiteboard or a flip-chart to capture key examples of the expected behaviour, and discuss them until everyone feels that they have enough information to proceed. Collaboration is critical as it helps groups reach shared understanding. Avoid any single person writing the key examples on their own, even if that person is the product manager or business representative. 
 
@@ -31,7 +31,7 @@ Try to capture the perspectives of domain experts, testers and developers with t
 
 Once you've agreed on the key examples, you can refine and capture them as an Executable Specification. For tips on how to do this effectively with DaSpec, check out the [Good specification/test design guidelines](how_to_write_specifications.md).
 
-##Resources for further research
+## Resources for further research
 
 Here are some useful pointers for further study about this topic:
 
