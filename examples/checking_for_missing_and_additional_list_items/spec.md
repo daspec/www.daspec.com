@@ -6,7 +6,7 @@
 >
 > For now, just ensuring that unwanted messages do not come into feeds is enough.
 >
-> We should also ensure that we're not removing message from other the feeds of other users.
+> We should also ensure that we're not removing messages from the feeds of other users.
 
 Marina has blocked the following senders:
 

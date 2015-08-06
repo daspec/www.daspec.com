@@ -17,12 +17,14 @@ layout: page
 	 <div role="tabpanel" class="tab-pane fade in active" id="spec">
 		 <span class="tabpanel-intro">
 	 This specification will be executed when you open the Result tab. 
-		Switch to the Markdown format to edit it, and play around with the values to see the impact.
+
 	</span><br/>
 		View:
 	 <input type="radio" name="source-format" format="html" checked> Formatted
 	 <input type="radio" name="source-format" format="md"> Markdown <br/>
-
+   <div class="alert alert-success alert-block">
+     <b>Tip:</b> Switch to the Markdown format to edit the spec, and play around with the values to see the impact in the Result tab.
+   </div>
 <textarea id="markdownArea" class="examples code" visible-format="md">
 {% include {{page.example | prepend: 'examples/'  |  append: '/spec.md' }} %}
 </textarea>
