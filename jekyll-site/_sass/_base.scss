@@ -44,25 +44,29 @@ body {
   margin-top: 10px;
   padding-top: 10px;
 }
-.carousel .item {
-  height: 250px;
-}
-.carousel-caption p {
-  text-shadow: black 1px 1px, rgb(19,19,19) 0px 0px 30px;
-}
-.carousel-caption footer a {
-  color: #eeeeee;
-  text-shadow: black 1px 1px, rgb(19,19,19) 0px 0px 30px;
-}
 .jumbotron {
-min-height: 500px;
+  min-height: 500px;
+  background-image: url(/assets/placeholder-logo.jpg);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: cover;
+  position:relative;
 }
 .jumbo-text {
-  vertical-align: bottom;
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  text-align: right;
+  color: #333333;
 }
-.jumbo-img {
-  height: 400px;
-  float: right;
+.jumbo-quote {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  text-align: right;
+  font-size: 3em;
+  font-style: italic;
+  font-family: Times;
 }
 .jumbotron h1 {font-size: 50px;}
 .jumbotron h1 small {font-size: 30px;}
