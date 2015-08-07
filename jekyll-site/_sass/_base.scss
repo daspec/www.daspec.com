@@ -83,4 +83,8 @@ body {
   border: 1px solid silver;
   padding: 5px;
 }
-
+.opt-shadow { text-shadow: 2px 2px 4px rgba(50, 50, 50, 0.5); }
+@media (max-width: 990px) {
+.opt-shadow, .jumbotron h1 {color: white; }
+.opt-shadow { text-shadow: 2px 2px 4px rgba(50, 50, 50, 1); }
+}
