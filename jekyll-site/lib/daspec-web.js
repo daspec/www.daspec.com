@@ -151,7 +151,7 @@ module.exports = function ExampleBlock() {
 			if (!regexUtil.isListItem(topLine) && regexUtil.assertionLine(topLine)) {
 				return {type: 'list',
 					ordered: !isNaN(parseFloat(listSymbol)),
-					items: listLines.map(regexUtil.stripListSymbol),
+					items: listLines.map(regexUtil.lineItemContent),
 					symbol: listSymbol
 				};
 			}
@@ -349,6 +349,9 @@ module.exports = function MarkDownFormatter() {
 			passed = function (assertion) {
 				return assertion.passed;
 			},
+			notEmpty = function (array) {
+				return array && array.length;
+			},
 			forAttachment = function (assertion) {
 				return stepResult.attachment && stepResult.attachment.items && stepResult.attachment.items.length > 0 &&
 					(assertion.expected === stepResult.attachment.items || assertion.expected == stepResult.attachment);
@@ -363,7 +366,7 @@ module.exports = function MarkDownFormatter() {
 				}
 				if (noIndexAssertions.some(failed)) {
 					if (regexUtil.isListItem(stepResult.stepText)) {
-						return regexUtil.getListSymbol(stepResult.stepText) + '**~~' + regexUtil.stripListSymbol(stepResult.stepText) + '~~**';
+						return regexUtil.getListSymbol(stepResult.stepText) + '**~~' + regexUtil.lineItemContent(stepResult.stepText) + '~~**';
 					} else if (regexUtil.isTableItem(stepResult.stepText)) {
 						return '| ' + tableUtil.cellValuesForRow(stepResult.stepText).map(crossValue).join(' | ') + ' |';
 					} else {
@@ -375,7 +378,7 @@ module.exports = function MarkDownFormatter() {
 				}
 				if (stepResult.assertions.length) {
 					if (regexUtil.isListItem(stepResult.stepText)) {
-						return regexUtil.getListSymbol(stepResult.stepText) + '**' + regexUtil.stripListSymbol(stepResult.stepText) + '**';
+						return regexUtil.getListSymbol(stepResult.stepText) + '**' + regexUtil.lineItemContent(stepResult.stepText) + '**';
 					} else if (regexUtil.isTableItem(stepResult.stepText)) {
 						return '| ' + tableUtil.cellValuesForRow(stepResult.stepText).map(boldValue).join(' | ') + ' |';
 					} else {
@@ -393,10 +396,13 @@ module.exports = function MarkDownFormatter() {
 							return false;
 						}
 						var failedListAssertions = stepResult.assertions.filter(failed).filter(forAttachment),
+							passedListAssertions = stepResult.assertions.filter(passed).filter(forAttachment),
 							values = stepResult.attachment.items,
 							symbol = stepResult.attachment.symbol || '* ';
-						if (failedListAssertions && failedListAssertions.length > 0) {
+						if (notEmpty(failedListAssertions)) {
 							values = self.formatListResult(failedListAssertions[0].value);
+						} else if (notEmpty(passedListAssertions)) {
+							values = self.formatListResult({matching: stepResult.attachment.items});
 						}
 						return '\n' + symbol + values.join('\n' + symbol);
 					},
@@ -412,12 +418,12 @@ module.exports = function MarkDownFormatter() {
 								passedTableAssertions = stepResult.assertions.filter(passed).filter(forAttachment),
 								values = stepResult.attachment.items,
 								resultRows = [];
-						if (failedTableAssertions && failedTableAssertions.length > 0) {
+						if (notEmpty(failedTableAssertions)) {
 							if (resultTitles) {
 								resultTitles.unshift('?');
 							}
 							values = self.getTableResult(failedTableAssertions[0].value);
-						} else if (passedTableAssertions && passedTableAssertions.length > 0) {
+						} else if (notEmpty(passedTableAssertions)) {
 							if (resultTitles) {
 								resultTitles.unshift('?');
 							}
@@ -610,11 +616,11 @@ module.exports = function RegexUtil() {
 		}
 		return true;
 	};
-	this.stripListSymbol = function (line) {
+	this.lineItemContent = function (line) {
 		if (!self.isListItem(line)) {
 			return line;
 		}
-		return line.replace(listSymbolRegex, '');
+		return line.replace(listSymbolRegex, '').trim();
 	};
 	this.getListSymbol = function (line) {
 		if (!self.isListItem(line)) {
