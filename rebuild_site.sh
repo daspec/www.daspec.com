@@ -15,10 +15,7 @@ title: $title
 layout: page 
 ---
 EOF
-sed -e 's/([^)]*\/examples)/(\/try.html)/' \
-    -e 's/\(([^)]*\/examples\/[^)]*\)/\1.html/' \
-    -e 's/"\([^"]*\/examples\/[^"]*\)/"\1.html/' \
-    -e s/\.md\)/\.html\)/g $c >> $dest/$c
+sed -e s/\.md\)/\.html\)/g $c >> $dest/$c
 done
 
 
@@ -41,6 +38,7 @@ title: $title
 layout: example 
 example: $example
 categories: [$categories]
+permalink: /examples/$example/
 ---
 EOF
 

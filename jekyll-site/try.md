@@ -2,6 +2,7 @@
 layout: page
 title: Try DaSpec in your browser
 excerpt: Demo examples for DaSpec
+permalink: /examples/
 ---
 
 # Try DaSpec in your browser
