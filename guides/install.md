@@ -1,8 +1,15 @@
 # Set-up DaSpec for your project
 
-DaSpec at the moment supports JavaScript only. We plan to add support for more platforms soon.
+At the moment, DaSpec only supports JavaScript. We plan to add support for more platforms soon.
 
-You can run DaSpec directly from the console, as a standalone utility, or you can integrate it using NPM scripts.
+There are several options for running DaSpec:
+
+* [A standalone console utility](#console-runner)
+* [Integrated with NPM build life-cycle events](#npm-script)
+* [In a continous integration server](#continuous-integration)
+* [In a browser](#in-a-browser)
+
+You can also [use custom formatters](#setting-up-custom-formatters) to improve your workflow or turn off outputs that you don't need in a particular use case.
 
 ## Console runner
  
@@ -79,5 +86,19 @@ The two default formatters are:
 Both the console tool and the NPM script set-up will report a non-zero exit code in case of any failures or exceptions during processing. This means that you can use those scripts straight away in a continuous integration setup. However, it's a good idea to change the standard list of formatters to something more easily machine consumable. 
 
 
+## In a browser
 
+The core DaSpec code is available as a simple bundle (without any third party dependencies) through Bower. To install it, just use 
+
+    bower install daspec
+
+You can then wire up components and execute arbitrary DaSpec specifications. 
+
+
+    markdownFormatter = new DaSpec.MarkdownResultFormatter();
+    runner = new DaSpec.Runner(defineSteps, markdownFormatter);
+    runner.example(spec);
+    result = markdownFormatter.formattedResults();
+
+For an example project, see the [daspec-js-bower-example project on GitHub](https://github.com/daspec/daspec-js-bower-example)
 
