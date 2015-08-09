@@ -12,12 +12,13 @@ Install daspec globally:
 
 You can now run daspec in the console:
 
-    daspec --specs ...  --steps ... --output-dir ... [--sources ...]
+    daspec --specs ...  --steps ... --output-dir ... [--sources ...] [--formatters ...]
 
 * __--specs__: (required) list of markdown files containing specifications. All the usual wildcard patterns are supported
 * __--steps__: (required) list of javascript files containing step definitions. All the usual wildcard patterns are supported
 * __--output-dir__: (required) where to store the result files
 * __--sources__: (optional) list of javascript files that will be loaded into global scope before step definitions. Not necessary if step definition files load the relevant source as node modules. All the usual wildcard patterns are supported.
+* __--formatters__: (optional) list of formatters for processing results. If omitted, DaSpec will print a summary to the console and save markdown files in the output directory.
 
 or 
 
@@ -36,10 +37,11 @@ Install daspec to your project repository
 Create a config file telling daspec where your specs and JS sources are:
 
     {
-    	"specs": ["specs/*.md"],
-    	"steps": ["steps/**/*.js"],
-    	"sources": ["src/**/*.js"],
-    	"output-dir": "daspec-output"
+      "specs": ["specs/*.md"],
+      "steps": ["steps/**/*.js"],
+      "sources": ["src/**/*.js"],
+      "output-dir": "daspec-output",
+
     }
 
 Add a NPM test script using daspec to __package.json__, pointing to your config file
@@ -55,4 +57,27 @@ Alternatively, save the config file as __daspec.json__ in your project root, and
 and DaSpec will execute the tests, printing the results to the console, and saving the resulting files to the output dir specified in the config file (in the previous example, __daspec-output__).
 
 For en example, see the [daspec-js-npm-example](https://github.com/daspec/daspec-js-npm-example) repository on GitHub.
+
+## Setting up custom formatters
+
+You can modify the default behaviour and turn off outputs that you do not want, or add completely new formatters that produce output your preferred test management tools can consume. To do that, just supply the list of node modules as the __--formatters__ argument, or add it to the __"formatters"__ key of the config file. For example, here is how the [daspec-js-npm-example](https://github.com/daspec/daspec-js-npm-example) replaces the grey console with [color console output](https://github.com/daspec/daspec-js-color-console-formatter):
+
+    {
+      ...
+      "formatters": ["daspec/formatters/markdown-files", "daspec-color-console"]
+      ...
+    }
+
+The two default formatters are:
+
+* __daspec/formatters/markdown-files__ -- prints markdown results to files in the output dir
+* __daspec/formatters/console__ -- simple summary in the console
+
+
+## Continuous integration
+
+Both the console tool and the NPM script set-up will report a non-zero exit code in case of any failures or exceptions during processing. This means that you can use those scripts straight away in a continuous integration setup. However, it's a good idea to change the standard list of formatters to something more easily machine consumable. 
+
+
+
 
