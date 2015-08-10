@@ -1,5 +1,5 @@
 ---
-layout: page 
+layout: page
 
 ---
 <div class="alert alert-block alert-info">
@@ -16,12 +16,12 @@ layout: page
  <div class="tab-content">
 	 <div role="tabpanel" class="tab-pane fade in active" id="spec">
 		 <span class="tabpanel-intro">
-	 This specification will be executed when you open the Result tab. 
+	 This specification will be executed when you open the Result tab.
 
 	</span><br/>
 		View:
-	 <input type="radio" name="source-format" format="html" checked> Formatted
-     <input type="radio" name="source-format" format="md"> Markdown <br/> 
+	 <input type="radio" name="source-format" format="html"> Formatted
+     <input type="radio" name="source-format" format="md" checked> Markdown <br/>
    <div class="alert alert-success alert-block">
      <b>Tip:</b> Switch to the Markdown format to edit the spec, and play around with the values to see the impact in the Result tab.
    </div>
@@ -44,7 +44,7 @@ layout: page
 	</div>
 	 <div role="tabpanel" class="tab-pane fade" id="sut">
 <span class="tabpanel-intro">
-	This tab contains the production code, the system under test. 
+	This tab contains the production code, the system under test.
 	Change the code to introduce bugs and re-run the specification
 	by switching to the Result tab to see the effects.
 </span><br/>
@@ -63,12 +63,12 @@ layout: page
     <span role="failed">Failed: <span role="value"></span></span>
     <span role="error">Error: <span role="value"></span></span>
     <span role="skipped">Skipped: <span role="value"></span></span>
-   
+
   </div>
     <b>View</b>:
 	 <input type="radio" name="target-format" format="html" checked> Formatted
 	 <input type="radio" name="target-format" format="md"> Markdown
-    <br/>  
+    <br/>
 		<div id="outputArea" class="examples code" visible-format="md">
 		</div>
 		<div id="formattedOutputArea" class="examples" visible-format="html">
@@ -77,7 +77,7 @@ layout: page
  </div>
 </div>
 
-<script type="text/javascript" src="/lib/daspec-web-0.0.5.js"></script>
+<script type="text/javascript" src="/lib/daspec-web-0.0.6.js"></script>
 <script type="text/javascript" src="/lib/showdown-1.2.2.min.js"></script>
 <script type="text/javascript">
 	/*global document, DaSpec, localStorage*/
@@ -87,28 +87,28 @@ window.addEventListener('load', function () {
 		formattedMarkdownArea = document.getElementById('formattedMarkdownArea'),
 		outputArea = document.getElementById('outputArea'),
 		formattedOutputArea = document.getElementById('formattedOutputArea'),
-		stepsArea = document.getElementById('stepsArea');
+		stepsArea = document.getElementById('stepsArea'),
 		sutArea = document.getElementById('sutArea'),
     updateAlert = function (counts) {
-      var alertClass;
-      if (counts.error || counts.failed) {
-          alertClass='alert-danger';
-        } else if (counts.skipped) {
-          alertClass='alert-warning';
-        } else if (counts.passed) {
-          alertClass='alert-success';
-        } else {
-          alertClass='alert-warning';
-        }
-      $('#outputSummary').removeClass('alert-warning alert-success alert-danger').addClass(alertClass);
-      Object.keys(counts).forEach(function (key) {
-        var field = $('#outputSummary [role=' + key + ']');
-        if (counts[key]) {
-            field.show().find('[role=value]').text(counts[key]);
-          } else {
-            field.hide();
-          }
-      });
+		var alertClass;
+		if (counts.error || counts.failed) {
+			alertClass='alert-danger';
+		} else if (counts.skipped) {
+			alertClass='alert-warning';
+		} else if (counts.passed) {
+			alertClass='alert-success';
+		} else {
+			alertClass='alert-warning';
+		}
+		$('#outputSummary').removeClass('alert-warning alert-success alert-danger').addClass(alertClass);
+		Object.keys(counts).forEach(function (key) {
+			var field = $('#outputSummary [role=' + key + ']');
+			if (counts[key]) {
+				field.show().find('[role=value]').text(counts[key]);
+			} else {
+				field.hide();
+			}
+		});
     },
 		rerun = function () {
 			'use strict';
@@ -116,15 +116,12 @@ window.addEventListener('load', function () {
 				window.defineStep = context.defineStep;
 				eval(sutArea.value + '\n' + stepsArea.value);
 			},
-      runner, result, markdownFormatter, counter, compositeFormatter;
+      runner, result, markdownFormatter, counter;
 			try {
-        markdownFormatter = new DaSpec.MarkdownResultFormatter();
-        counter = new DaSpec.CountingResultFormatter();
-        compositeFormatter = new DaSpec.CompositeResultFormatter(),
-        compositeFormatter.add(markdownFormatter);
-        compositeFormatter.add(counter);
-        runner = new DaSpec.Runner(defineSteps, compositeFormatter);
-				runner.example(markdownArea.value);
+        runner = new DaSpec.Runner(defineSteps);
+        markdownFormatter = new DaSpec.MarkdownResultFormatter(runner);
+        counter = new DaSpec.CountingResultListener(runner);
+				runner.execute(markdownArea.value);
         result = markdownFormatter.formattedResults();
 			} catch (e) {
 				result = '    ' + (e.stack || e.message || e.name || 'there was a problem executing the specification');

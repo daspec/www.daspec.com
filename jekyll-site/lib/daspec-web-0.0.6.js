@@ -82,17 +82,51 @@ module.exports = function Context() {
 	};
 };
 
-},{"./step-executor":14}],4:[function(require,module,exports){
+},{"./step-executor":17}],4:[function(require,module,exports){
+/*global module, require*/
+module.exports = function CountingResultListener(runner) {
+	'use strict';
+	var self = this,
+		AssertionCounts = require('./assertion-counts');
+
+	self.current = new AssertionCounts();
+	self.total = new AssertionCounts();
+
+	runner.addEventListener('stepResult', function (result) {
+		self.current.recordException(result.exception);
+		result.assertions.forEach(function (assertion) {
+			self.current.increment(assertion);
+		});
+	});
+
+	runner.addEventListener('skippedLine', function () {
+		self.current.skipped++;
+	});
+	runner.addEventListener('specStarted', function () {
+		self.current = new AssertionCounts();
+	});
+	runner.addEventListener('specEnded', function () {
+		self.total.incrementCounts(self.current);
+	});
+};
+
+},{"./assertion-counts":1}],5:[function(require,module,exports){
+/*global module, require */
+module.exports = {
+	Runner: require('./runner'),
+	MarkdownResultFormatter: require('./markdown-result-formatter'),
+	CountingResultListener: require('./counting-result-listener'),
+	TableUtil: require('./table-util')
+};
+
+},{"./counting-result-listener":4,"./markdown-result-formatter":11,"./runner":15,"./table-util":18}],6:[function(require,module,exports){
 (function (global){
 /*global require, global*/
 
-global.DaSpec = {
-	Runner: require('./runner'),
-	StepDefinitions: require('../test-data/test-steps')
-};
+global.DaSpec = require('./daspec-npm-main');
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../test-data/test-steps":16,"./runner":12}],5:[function(require,module,exports){
+},{"./daspec-npm-main":5}],7:[function(require,module,exports){
 /*global module, require*/
 module.exports = function ExampleBlock() {
 	'use strict';
@@ -203,7 +237,7 @@ module.exports = function ExampleBlock() {
 	};
 };
 
-},{"./normaliser":10,"./regex-util":11,"./table-util":15}],6:[function(require,module,exports){
+},{"./normaliser":12,"./regex-util":14,"./table-util":18}],8:[function(require,module,exports){
 /*global module, require*/
 module.exports = function ExampleBlocks(inputText) {
 	'use strict';
@@ -227,7 +261,7 @@ module.exports = function ExampleBlocks(inputText) {
 	};
 };
 
-},{"./example-block":5}],7:[function(require,module,exports){
+},{"./example-block":7}],9:[function(require,module,exports){
 /*global module*/
 module.exports = function ListUtil() {
 	'use strict';
@@ -272,7 +306,7 @@ module.exports = function ListUtil() {
 	};
 };
 
-},{}],8:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /*global module, require*/
 module.exports = function MarkDownFormatter() {
 	'use strict';
@@ -450,88 +484,72 @@ module.exports = function MarkDownFormatter() {
 	};
 };
 
-},{"./regex-util":11,"./table-util":15}],9:[function(require,module,exports){
+},{"./regex-util":14,"./table-util":18}],11:[function(require,module,exports){
 /*global module, require*/
-module.exports = function MarkdownResultFormatter() {
+module.exports = function MarkdownResultFormatter(runner) {
 	'use strict';
 	var self = this,
 		MarkDownFormatter = require('./markdown-formatter'),
 		markDownFormatter = new MarkDownFormatter(),
-		AssertionCounts = require('./assertion-counts'),
 		resultBuffer = [],
-		counts = new AssertionCounts(),
-		countDescription = function (counts) {
+		ResultCountListener = require('./counting-result-listener'),
+		resultCountListener = new ResultCountListener(runner),
+		tableRows = false,
+		TableUtil = require('./table-util'),
+		tableUtil = new TableUtil(),
+		countDescription = function () {
 			var labels = ['executed', 'passed', 'failed', 'error', 'skipped'],
 				description = '> **In da spec:** ',
 				comma = false;
 
 			labels.forEach(function (label) {
-				if (counts[label]) {
+				if (resultCountListener.current[label]) {
 					if (comma) {
 						description = description + ', ';
 					} else {
 						comma = true;
 					}
-					description = description + label + ': ' + counts[label];
+					description = description + label + ': ' + resultCountListener.current[label];
 				}
 			});
 			if (!comma) {
 				description = description + 'Nada';
 			}
 			return description;
-		},
-		TableResultBlock = function () {
-			var self = this,
-				tableCounts = new AssertionCounts(),
-				tableRows = [],
-				TableUtil = require('./table-util'),
-				tableUtil = new TableUtil();
-			self.counts = tableCounts;
-			self.nonAssertionLine = function (line) {
-				tableRows.push(line);
-			};
-			self.stepResult = function (result) {
-				tableCounts.recordException(result.exception);
-				result.assertions.forEach(function (assertion) {
-					tableCounts.increment(assertion);
-				});
-				tableRows.push(markDownFormatter.markResult(result));
-			};
-			self.formattedResults = function () {
-				return tableUtil.justifyTable(tableRows);
-			};
 		};
-	self.stepResult = function (result) {
-		counts.recordException(result.exception);
-		result.assertions.forEach(function (assertion) {
-			counts.increment(assertion);
-		});
-		resultBuffer.push(markDownFormatter.markResult(result));
-	};
-	self.nonAssertionLine = function (line) {
+	runner.addEventListener('stepResult', function (result) {
+		(tableRows || resultBuffer).push(markDownFormatter.markResult(result));
+	});
+	runner.addEventListener('nonAssertionLine',  function (line) {
+		(tableRows || resultBuffer).push(line);
+	});
+	runner.addEventListener('skippedLine', function (line) {
 		resultBuffer.push(line);
-	};
-	self.skippedLine = function (line) {
-		resultBuffer.push(line);
-		counts.skipped++;
-	};
+	});
+	runner.addEventListener('tableStarted', function () {
+		tableRows = [];
+	});
+	runner.addEventListener('tableEnded', function () {
+		if (tableRows) {
+			resultBuffer = resultBuffer.concat(tableUtil.justifyTable(tableRows));
+		}
+		tableRows = false;
+	});
+	runner.addEventListener('specStarted', function () {
+		resultBuffer = [];
+	});
+	runner.addEventListener('specEnded', function () {
+		resultBuffer.unshift('');
+		resultBuffer.unshift(countDescription());
+	});
 
 	self.formattedResults = function () {
-		var out = resultBuffer.slice(0);
-		out.unshift('');
-		out.unshift(countDescription(counts));
-		return out.join('\n');
+		return resultBuffer.join('\n');
 	};
-	self.appendResultBlock = function (formatter) {
-		counts.incrementCounts(formatter.counts);
-		resultBuffer = resultBuffer.concat(formatter.formattedResults());
-	};
-	self.tableResultBlock = function () {
-		return new TableResultBlock();
-	};
+
 };
 
-},{"./assertion-counts":1,"./markdown-formatter":8,"./table-util":15}],10:[function(require,module,exports){
+},{"./counting-result-listener":4,"./markdown-formatter":10,"./table-util":18}],12:[function(require,module,exports){
 /*global module*/
 module.exports = function Normaliser() {
 	'use strict';
@@ -563,7 +581,56 @@ module.exports = function Normaliser() {
 	};
 };
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
+/*global module, console*/
+/*jshint unused:false */
+module.exports = function observable(base) {
+	'use strict';
+	var listeners = [], x;
+	base.addEventListener = function (types, listener, priority) {
+		types.split(' ').forEach(function (type) {
+			if (type) {
+				listeners.push({
+					type: type,
+					listener: listener,
+					priority: priority || 0
+				});
+			}
+		});
+	};
+	base.listeners = function (type) {
+		return listeners.filter(function (listenerDetails) {
+			return listenerDetails.type === type;
+		}).map(function (listenerDetails) {
+			return listenerDetails.listener;
+		});
+	};
+	base.removeEventListener = function (type, listener) {
+		listeners = listeners.filter(function (details) {
+			return details.listener !== listener;
+		});
+	};
+	base.dispatchEvent = function (type) {
+		var args = Array.prototype.slice.call(arguments, 1);
+		listeners
+			.filter(function (listenerDetails) {
+				return listenerDetails.type === type;
+			})
+			.sort(function (firstListenerDetails, secondListenerDetails) {
+				return secondListenerDetails.priority - firstListenerDetails.priority;
+			})
+			.some(function (listenerDetails) {
+				try {
+					return listenerDetails.listener.apply(undefined, args) === false;
+				} catch (e) {
+					console.log('dispatchEvent failed', e, listenerDetails);
+				}
+			});
+	};
+	return base;
+};
+
+},{}],14:[function(require,module,exports){
 /*global module*/
 module.exports = function RegexUtil() {
 	'use strict';
@@ -655,54 +722,61 @@ module.exports = function RegexUtil() {
 	};
 };
 
-},{}],12:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 /*global module, require*/
 module.exports = function Runner(stepFunc) {
 	'use strict';
 	var Context = require('./context'),
 		RegexUtil = require('./regex-util'),
+		observable = require('./observable'),
 		regexUtil = new RegexUtil(),
 		ExampleBlocks = require('./example-blocks'),
-		self = this;
+		self = observable(this);
 
-
-	self.example = function (inputText) {
-		var MarkDownResultFormatter = require('./markdown-result-formatter'),
-			context = new Context(),
-			results = new MarkDownResultFormatter(),
+	self.execute = function (inputText, exampleName) {
+		var context = new Context(),
 			blocks = new ExampleBlocks(inputText),
+			lineNumber = 0,
+			sendLineEvent = function (eventName, line) {
+				if (!line && line !== '') {
+					self.dispatchEvent(eventName, lineNumber, exampleName);
+				} else {
+					self.dispatchEvent(eventName, line, lineNumber, exampleName);
+				}
+			},
 			processTableBlock = function (block) {
 				var blockLines = block.getMatchText(),
 					step,
 					headerLine,
-					tableResultBlock,
+					// tableResultBlock,
 					startNewTable = function (line) {
 						step = context.getStepForLine(line);
 						if (!step) {
-							results.skippedLine(line);
+							sendLineEvent('skippedLine', line);
 						} else {
 							headerLine = line;
-							tableResultBlock = results.tableResultBlock();
-							tableResultBlock.nonAssertionLine(line);
+							sendLineEvent('tableStarted');
+							sendLineEvent('nonAssertionLine', line);
+
 						}
 					},
 					endCurrentTable = function () {
-						step = false;
-						if (tableResultBlock) {
-							results.appendResultBlock(tableResultBlock);
-							tableResultBlock = false;
+						if (step) {
+							sendLineEvent('tableEnded');
+							step = false;
 						}
 					};
 				blockLines.forEach(function (line) {
+					lineNumber++;
 					if (!regexUtil.isTableItem(line)) {
 						endCurrentTable();
-						results.nonAssertionLine(line);
-					} else if (!tableResultBlock) {
+						sendLineEvent('nonAssertionLine', line);
+					} else if (!step) {
 						startNewTable(line);
 					} else if (regexUtil.isTableDataRow(line)) {
-						tableResultBlock.stepResult(step.executeTableRow(line, headerLine));
+						sendLineEvent('stepResult', step.executeTableRow(line, headerLine));
 					} else {
-						tableResultBlock.nonAssertionLine(line);
+						sendLineEvent('nonAssertionLine', line);
 					}
 				});
 				endCurrentTable();
@@ -711,20 +785,22 @@ module.exports = function Runner(stepFunc) {
 				var blockLines = block.getMatchText(),
 					blockParam = block.getAttachment();
 				blockLines.forEach(function (line) {
+					lineNumber++;
 					if (!regexUtil.assertionLine(line)) { //Move to block?
-						results.nonAssertionLine(line);
+						sendLineEvent('nonAssertionLine', line);
 						return;
 					}
 
 					var step = context.getStepForLine(line);
 					if (!step) {
-						results.skippedLine(line);
+						sendLineEvent('skippedLine', line);
 						return;
 					}
-					results.stepResult(step.execute(line, blockParam));
+					sendLineEvent('stepResult', step.execute(line, blockParam));
 				});
 			};
 		stepFunc.apply(context, [context]);
+		self.dispatchEvent('specStarted', exampleName);
 		blocks.getBlocks().forEach(function (block) {
 			if (block.isTableBlock()) {
 				processTableBlock(block);
@@ -732,11 +808,11 @@ module.exports = function Runner(stepFunc) {
 				processBlock(block);
 			}
 		});
-		return results.formattedResults();
+		self.dispatchEvent('specEnded', exampleName);
 	};
 };
 
-},{"./context":3,"./example-blocks":6,"./markdown-result-formatter":9,"./regex-util":11}],13:[function(require,module,exports){
+},{"./context":3,"./example-blocks":8,"./observable":13,"./regex-util":14}],16:[function(require,module,exports){
 /*global module, require*/
 module.exports = function StepContext(result) {
 	'use strict';
@@ -776,7 +852,7 @@ module.exports = function StepContext(result) {
 	};
 };
 
-},{"./assertion":2,"./list-util":7,"./table-util":15}],14:[function(require,module,exports){
+},{"./assertion":2,"./list-util":9,"./table-util":18}],17:[function(require,module,exports){
 /*global module, require*/
 module.exports = function StepExecutor(regexMatcher, processFunction) {
 	'use strict';
@@ -840,7 +916,7 @@ module.exports = function StepExecutor(regexMatcher, processFunction) {
 	};
 };
 
-},{"./regex-util":11,"./step-context":13,"./table-util":15}],15:[function(require,module,exports){
+},{"./regex-util":14,"./step-context":16,"./table-util":18}],18:[function(require,module,exports){
 /*global module, require*/
 module.exports = function TableUtil() {
 	'use strict';
@@ -930,68 +1006,4 @@ module.exports = function TableUtil() {
 	};
 };
 
-},{"./normaliser":10,"./regex-util":11}],16:[function(require,module,exports){
-/*global module*/
-module.exports = function (ctx) {
-	'use strict';
-	ctx.defineStep(/Simple arithmetic: (\d*) plus (\d*) is (\d*)/, function (firstArg, secondArg, expectedResult) {
-		this.assertEquals(expectedResult, parseFloat(firstArg) + parseFloat(secondArg), 2);
-	});
-	ctx.defineStep(/Simple arithmetic: (\d*) and (\d*) added is (\d*) and multiplied is (\d*)/, function (firstArg, secondArg, expectedAdd, expectedMultiply) {
-		this.assertEquals(expectedAdd, parseFloat(firstArg) + parseFloat(secondArg), 2);
-		this.assertEquals(expectedMultiply, parseFloat(firstArg) * parseFloat(secondArg), 3);
-	});
-	ctx.defineStep(/Multiple Assertions (\d*) is (\d*) and (.*)/, function (num1, num2, lineStatus) {
-		this.assertEquals(num2, num1, 1);
-		this.assertEquals(lineStatus, 'passes');
-	});
-	ctx.defineStep(/Multiple Assertions line ([a-z]*) and ([a-z]*)/, function (lineStatus1, lineStatus2) {
-		this.assertEquals(lineStatus1, 'passes');
-		this.assertEquals(lineStatus2, 'passes');
-	});
-	ctx.defineStep(/Star Wars has the following episodes:/, function (listOfEpisodes) {
-		var episodes = [
-			'A New Hope',
-			'The Empire Strikes Back',
-			'Return of the Jedi'];
-		this.assertSetEquals(listOfEpisodes.items, episodes);
-	});
-	var films = {}, tables = {};
-	ctx.defineStep(/These are the ([A-Za-z ]*) Films/, function (seriesName, tableOfReleases) {
-		films[seriesName] = tableOfReleases.items;
-		tables[seriesName] = tableOfReleases;
-	});
-	ctx.defineStep(/In total there a (\d*) ([A-Za-z ]*) Films/, function (numberOfFilms, seriesName) {
-		var actual = (films[seriesName] && films[seriesName].length) || 0;
-		this.assertEquals(parseFloat(numberOfFilms), actual, 0);
-	});
-	ctx.defineStep(/Good ([A-Za-z ]*) Films are/, function (seriesName, listOfEpisodes) {
-		var actual = films[seriesName];
-		this.assertSetEquals(listOfEpisodes.items, actual);
-	});
-	ctx.defineStep(/Check ([A-Za-z ]*) Films/, function (seriesName, listOfEpisodes) {
-		this.assertUnorderedTableEquals(listOfEpisodes, tables[seriesName]);
-	});
-	ctx.defineStep(/\|([A-Za-z ]*) episode \| Year of release \|/, function (episode, yearOfRelease, seriesName) {
-		var series = films[seriesName],
-			matching = series && series.filter(function (film) {
-				return film[0] === episode;
-			}),
-			actualYear = matching && matching.length > 0 && matching[0][1];
-		this.assertEquals(true, !!series);
-		this.assertEquals(true, !!matching && matching.length);
-		this.assertEquals(yearOfRelease, actualYear, 1);
-	});
-
-	ctx.defineStep(/\| Positional Check episodes of ([A-Za-z ]*) \| Year of release \|/, function (episode, yearOfRelease, seriesName) {
-		var series = films[seriesName],
-			matching = series && series.filter(function (film) {
-				return film[0] === episode;
-			}),
-			actualYear = matching && matching.length > 0 && matching[0][1];
-		this.assertEquals(yearOfRelease, actualYear, 1);
-	});
-
-};
-
-},{}]},{},[4]);
+},{"./normaliser":12,"./regex-util":14}]},{},[6]);
