@@ -12,7 +12,7 @@ There are several options for running DaSpec:
 You can also [use custom formatters](#setting-up-custom-formatters) to improve your workflow or turn off outputs that you don't need in a particular use case.
 
 ## Console runner
- 
+
 Install daspec globally:
 
     npm install daspec -g
@@ -27,7 +27,7 @@ You can now run daspec in the console:
 * __--sources__: (optional) list of javascript files that will be loaded into global scope before step definitions. Not necessary if step definition files load the relevant source as node modules. All the usual wildcard patterns are supported.
 * __--formatters__: (optional) list of formatters for processing results. If omitted, DaSpec will print a summary to the console and save markdown files in the output directory.
 
-or 
+or
 
 	daspec --config <configuration file>
 
@@ -57,7 +57,7 @@ Add a NPM test script using daspec to __package.json__, pointing to your config 
       "test": "daspec --config config-path.json"
     },
 
-Alternatively, save the config file as __daspec.json__ in your project root, and you won't have to supply the __--config__ argument. Now run 
+Alternatively, save the config file as __daspec.json__ in your project root, and you won't have to supply the __--config__ argument. Now run
 
     npm test
 
@@ -83,21 +83,20 @@ The two default formatters are:
 
 ## Continuous integration
 
-Both the console tool and the NPM script set-up will report a non-zero exit code in case of any failures or exceptions during processing. This means that you can use those scripts straight away in a continuous integration setup. However, it's a good idea to change the standard list of formatters to something more easily machine consumable. 
+Both the console tool and the NPM script set-up will report a non-zero exit code in case of any failures or exceptions during processing. This means that you can use those scripts straight away in a continuous integration setup. However, it's a good idea to change the standard list of formatters to something more easily machine consumable.
 
 
 ## In a browser
 
-The core DaSpec code is available as a simple bundle (without any third party dependencies) through Bower. To install it, just use 
+The core DaSpec code is available as a simple bundle (without any third party dependencies) through Bower. To install it, just use
 
     bower install daspec
 
-You can then wire up components and execute arbitrary DaSpec specifications. 
+You can then wire up components and execute arbitrary DaSpec specifications.
 
-
-    markdownFormatter = new DaSpec.MarkdownResultFormatter();
-    runner = new DaSpec.Runner(defineSteps, markdownFormatter);
-    runner.example(spec);
+    runner = new DaSpec.Runner(defineSteps);
+    markdownFormatter = new DaSpec.MarkdownResultFormatter(runner);
+    runner.execute(spec);
     result = markdownFormatter.formattedResults();
 
 For an example project, see the [daspec-js-bower-example project on GitHub](https://github.com/daspec/daspec-js-bower-example)
