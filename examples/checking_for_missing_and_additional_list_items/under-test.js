@@ -4,9 +4,8 @@ var FeedService = function () {
 		messages = [],
 		blacklists = {},
 		feeds = [],
-		allowedSending = function (user) {
-			/* "this" will be the sender we're querying for */
-			return !blacklists[user] || blacklists[user].indexOf(this) < 0;
+		allowedSending = function (user, sender) {
+			return !blacklists[user] || blacklists[user].indexOf(sender) < 0;
 		};
 	self.addFeed = function (user) {
 		if (feeds.indexOf(user)<0) {
@@ -14,7 +13,9 @@ var FeedService = function () {
 		}
 	};
 	self.send = function (sender, message) {
-		messages.push({text: message, destinations: feeds.filter(allowedSending, sender)});
+		messages.push({text: message, destinations: feeds.filter(function (feed) {
+			return allowedSending(feed, sender);
+		})});
 		return messages.length - 1;
 	};
 	self.getFeedsForMessageId = function (messageId) {
