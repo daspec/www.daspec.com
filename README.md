@@ -28,6 +28,6 @@ Next, you'll need to download the third party components that the web site depen
 
 Finally, you should just be able to serve the jekyll site locally (make sure you're in the jekyll_site directory)
 
-   jekyll serve
+    jekyll serve
 
 
