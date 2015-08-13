@@ -2,7 +2,7 @@
 layout: page
 
 ---
-<div class="alert alert-block alert-info">{{content}}</div>
+<div>{{content}}</div>
 <div>
 	<ul class="nav nav-tabs" role="tablist">
 		<li class="active"><a href="#spec" role="tab" data-toggle="tab">Specification</a></li>
@@ -10,67 +10,69 @@ layout: page
 		<li ><a href="#sut" role="tab" data-toggle="tab">System under test</a></li>
 		<li ><a id="runButton" href="#result" role="tab" data-toggle="tab">&#9654; Result</a></li>
   	</ul>
- 	<div class="tab-content">
-		<div role="tabpanel" class="tab-pane fade in active" id="spec">
-			<span class="tabpanel-intro">This specification will be executed when you open the Result tab.</span>
-			<br/>
-			View:
-			<input type="radio" name="source-format" format="html"> Formatted
-			<input type="radio" name="source-format" format="md" checked> Markdown <br/>
-			<div class="alert alert-success alert-block">
-				<b>Tip:</b> Switch to the Markdown format to edit the spec, and play around with the values to see the impact in the Result tab.
-			</div>
-			<textarea id="markdownArea" class="examples code" visible-format="md">
-			{% include {{page.example | prepend: 'examples/'  |  append: '/spec.md' }} %}
-			</textarea>
+<div class="tab-content">
+	<div role="tabpanel" class="tab-pane fade in active" id="spec">
+		<span class="tabpanel-intro">This specification will be executed when you open the Result tab.</span>
+		<div class="format-areas">
+			<input type="radio" name="source-format" format="html">
+			<input type="radio" name="source-format" format="md" checked>
+			<button class="top-button eye-open" visible-format="md" target-format="html"
+				data-toggle="tooltip" data-placement="left" title="Show formatted preview"
+				></button>
+			<button class="top-button eye-closed" visible-format="html" target-format="md"
+				data-toggle="tooltip" data-placement="left" title="Show Markdown source"					
+				></button>
+			<div id="markdownArea" class="examples" visible-format="md">{% include {{page.example | prepend: 'examples/'  |  append: '/spec.md' }} %}</div>
 			<div id="formattedMarkdownArea" class="examples" visible-format="html"></div>
 		</div>
-	 	<div role="tabpanel" class="tab-pane fade" id="steps">
-			<span class="tabpanel-intro">
-				This tab contains the step definitions, the automation interface that tells DaSpec
-				how to connect to the system under test. Change the code and re-run the specification
-				by switching to the Result tab to see the effects.
-			</span><br/>
-			<textarea id="stepsArea" class="examples code">
-			{% include {{page.example | prepend: 'examples/'  |  append: '/steps.js' }} %}
-			</textarea>
+	</div>
+	<div role="tabpanel" class="tab-pane fade" id="steps">
+		<span class="tabpanel-intro">
+			This tab contains the step definitions, the automation interface that tells DaSpec
+			how to connect to the system under test. Change the code and re-run the specification
+			by switching to the Result tab to see the effects.
+		</span><br/>
+		<div id="stepsArea" class="examples">{% include {{page.example | prepend: 'examples/'  |  append: '/steps.js' }} %}</div>
+	</div>
+	<div role="tabpanel" class="tab-pane fade" id="sut">
+		<span class="tabpanel-intro">
+			This tab contains the production code, the system under test.
+			Change the code to introduce bugs and re-run the specification
+			by switching to the Result tab to see the effects.
+		</span><br/>
+		<div id="sutArea" class="examples">{% include {{page.example | prepend: 'examples/'  |  append: '/under-test.js' }} %}</div>
+	</div>
+	<div role="tabpanel" class="tab-pane fade" id="result">
+		<span class="tabpanel-intro">
+			This tab contains the test results - the executed specification. Change the values in the
+			Specification tab, or the code in the System under test tab and switch back here to see the impact.
+		</span>
+		<br/>
+		<div id="outputSummary" class="alert alert-block">
+			<span role="executed">Executed: <span role="value"></span></span>
+			<span role="passed">Passed: <span role="value"></span></span>
+			<span role="failed">Failed: <span role="value"></span></span>
+			<span role="error">Error: <span role="value"></span></span>
+			<span role="skipped">Skipped: <span role="value"></span></span>
+			<span role="noexec"><b>Warning:</b> This spec did not contain any executable lines</span>
 		</div>
-	 	<div role="tabpanel" class="tab-pane fade" id="sut">
-			<span class="tabpanel-intro">
-				This tab contains the production code, the system under test.
-				Change the code to introduce bugs and re-run the specification
-				by switching to the Result tab to see the effects.
-			</span><br/>
-			<textarea id="sutArea" class="examples code">
-			{% include {{page.example | prepend: 'examples/'  |  append: '/under-test.js' }} %}
-			</textarea>
-	 	</div>
-	 	<div role="tabpanel" class="tab-pane fade" id="result">
-			<span class="tabpanel-intro">
-				This tab contains the test results - the executed specification. Change the values in the
-				Specification tab, or the code in the System under test tab and switch back here to see the impact.
-			</span>
-			<br/>
-			<div id="outputSummary" class="alert alert-block">
-				<span role="executed">Executed: <span role="value"></span></span>
-				<span role="passed">Passed: <span role="value"></span></span>
-				<span role="failed">Failed: <span role="value"></span></span>
-				<span role="error">Error: <span role="value"></span></span>
-				<span role="skipped">Skipped: <span role="value"></span></span>
-			</div>
-			<b>View</b>:
-	 		<input type="radio" name="target-format" format="html" checked>&nbsp;Formatted
-	 		<input type="radio" name="target-format" format="md">&nbsp;Markdown
-			<br/>
-			<div id="outputArea" class="examples code" visible-format="md"></div>
+		<div class="format-areas">
+			<input type="radio" name="target-format" format="html" checked>
+			<input type="radio" name="target-format" format="md">
+			<button class="top-button eye-open" visible-format="md" target-format="html"
+				data-toggle="tooltip" data-placement="left" title="Show formatted preview"
+				></button>
+			<button class="top-button eye-closed" visible-format="html" target-format="md"
+				data-toggle="tooltip" data-placement="left" title="Show Markdown source"					
+				></button>
+			<div id="outputArea" class="examples" visible-format="md"></div>
 			<div id="formattedOutputArea" class="examples" visible-format="html"></div>
-	 	</div>
- 	</div>
+		</div>
+	</div>
+</div>
 </div>
 
-<script type="text/javascript" src="/lib/daspec-web-0.0.6.js"></script>
-<script type="text/javascript" src="/lib/showdown-1.2.2.min.js"></script>
+<script type="text/javascript" src="/bower_components/daspec/compiled/daspec-web.js"></script>
+<script type="text/javascript" src="/bower_components/showdown/dist/showdown.js"></script>
+<script type="text/javascript" src="/bower_components/ace-builds/src-min-noconflict/ace.js"></script>
 <script type="text/javascript" src="/lib/layout-example.js"></script>
-<script type="text/javascript">
-window.addEventListener('load', daspecExamplePageLoad);
-</script>

@@ -1,0 +1,30 @@
+{
+  "name": "daspec-web",
+  "version": "0.0.1",
+  "authors": [
+    "Sauf Pompiers <contact@saufpompiers.com>"
+  ],
+  "description": "daspec web site",
+  "keywords": [
+    "daspec",
+    "test",
+    "bdd",
+    "tdd",
+    "specbyexample"
+  ],
+  "license": "MIT",
+  "homepage": "http://daspec.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "daspec": "0.0.7",
+    "showdown": "~1.2.2",
+    "bootstrap": "~3.3.5",
+    "ace-builds": "~1.2.0"
+  }
+}
