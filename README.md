@@ -6,7 +6,7 @@ the formatted version in action at [www.daspec.com](http://daspec.com) and try o
 
 ## Folder structure
 
-The main web site structure is in the [jekyll_site](jekyll_site) directory. 
+The main web site structure is in the [jekyll-site](jekyll-site) directory. 
 
 To make files browsable both on github as a repository and on the web site, all the guides and the examples are extracted from the web site boilerplate code and in their own folders, in the root. The [rebuild_site.sh](rebuild_site.sh) script copies those files into the right place in jekyll_site. It also rewrites links from markdown files to HTML files so they work when published online. So if you change something in the examples or guides folders, remember to run `rebuild_site.sh` to push those files into the jekyll_site dir. 
 
@@ -23,7 +23,7 @@ Post-process the markdown files into jekyll web pages (run this in the main proj
 
 Next, you'll need to download the third party components that the web site depends on
 
-    cd jekyll_site
+    cd jekyll-site
     bower install
 
 Finally, you should just be able to serve the jekyll site locally (make sure you're in the jekyll_site directory)
