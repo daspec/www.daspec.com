@@ -35,7 +35,7 @@ or
 
 * __--config__: (required) path to a config file that contains a JSON with the relevant options
 
-You can also save the default configuration options into a file called __daspec.json__ in the working directory, and run __daspec__ without arguments.
+You can also save the default configuration options into a file called `daspec.json` in the working directory, and run `daspec` without arguments.
 
 ## NPM script
 
@@ -53,23 +53,23 @@ Create a config file telling daspec where your specs and JS sources are:
 
     }
 
-Add a NPM test script using daspec to __package.json__, pointing to your config file
+Add a NPM test script using daspec to `package.json`, pointing to your config file
 
     "scripts": {
       "test": "daspec --config config-path.json"
     },
 
-Alternatively, save the config file as __daspec.json__ in your project root, and you won't have to supply the __--config__ argument. Now run
+Alternatively, save the config file as `daspec.json` in your project root, and you won't have to supply the `--config` argument. Now run
 
     npm test
 
-and DaSpec will execute the tests, printing the results to the console, and saving the resulting files to the output dir specified in the config file (in the previous example, __daspec-output__).
+and DaSpec will execute the tests, printing the results to the console, and saving the resulting files to the output dir specified in the config file (in the previous example, `daspec-output`).
 
 For en example, see the [daspec-js-npm-example](https://github.com/daspec/daspec-js-npm-example) repository on GitHub.
 
 ## Setting up custom formatters
 
-You can modify the default behaviour and turn off outputs that you do not want, or add completely new formatters that produce output your preferred test management tools can consume. To do that, just supply the list of node modules as the __--formatters__ argument, or add it to the __"formatters"__ key of the config file. For example, here is how the [daspec-js-npm-example](https://github.com/daspec/daspec-js-npm-example) replaces the grey console with [color console output](https://github.com/daspec/daspec-js-color-console-formatter):
+You can modify the default behaviour and turn off outputs that you do not want, or add completely new formatters that produce output your preferred test management tools can consume. To do that, just supply the list of node modules as the `--formatters` argument, or add it to the `formatters` key of the config file. For example, here is how the [daspec-js-npm-example](https://github.com/daspec/daspec-js-npm-example) replaces the grey console with [color console output](https://github.com/daspec/daspec-js-color-console-formatter):
 
     {
       ...
@@ -85,7 +85,7 @@ The two default formatters are:
 
 ## Continuous integration
 
-Both the console tool and the NPM script set-up will report a non-zero exit code in case of any failures or exceptions during processing. This means that you can use those scripts straight away in a continuous integration setup. However, it's a good idea to change the standard list of formatters to something more easily machine consumable.
+Both the console tool and the NPM script set-up will report a non-zero exit code in case of any failures or exceptions during processing. This means that you can use those scripts straight away in a continuous integration setup. However, it's a good idea to change the standard list of formatters to something more easily machine consumable. For example, the [Junit XML formatter](https://github.com/daspec/daspec-js-junit-xml-formatter) produces an output that can be consumed by most continuous integration servers.
 
 
 ## In a browser
