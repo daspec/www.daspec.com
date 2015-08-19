@@ -6,9 +6,7 @@ The purpose of this page is to get people started with automatic DaSpec specific
 
 If you're looking for information on how to write DaSpec documents, and you don't care about automating, don't bother with this page. Just start with [How To Write Specifications With DaSpec](how_to_write_specifications.md).
 
-<div class="alert alert-block alert-success">
-Try this example live in your browser, and experiment with the values: <a href="../examples/hello_world">Hello World Example</a>
-</div>
+<div class="alert alert-info"><h4>Try this example live in your browser!</h4> Follow the example and experiment with the values: <a href="../examples/hello_world">Hello World Example</a></div>
 
 ## Prerequisites
 
@@ -28,6 +26,8 @@ As a developer using DaSpec, you'll need to tell it how to connect to your syste
 
 DaSpec does all the heavy lifting of format conversions and parsing -- all you have to do is to explain what the individual parts of the examples mean, and how to pass them on to your system under test. 
 
+<div class="alert alert-block alert-info"><h4>Organising Files</h4> This example uses one spec file, one steps file and one system under test file just to demonstrate the basic ideas. On a realistic project, a single step file can define steps for many specification files, and it can call into many domain classes. You don't have to redefine steps for each spec file.</div>
+
 ## System under test
 
 To make things a bit more concrete, we'll be executing a specification against a JavaScript function. For this example, a simple string concatenator will do, but in real projects this will be your domain services, utility functions, API endpoints, or some other piece of code you want to check. 
@@ -38,10 +38,9 @@ To make things a bit more concrete, we'll be executing a specification against a
 
 ## Specification
 
-The specification document explains what you expect the system under test to do. Ideally, it explains it in a human readable-form, so that your stakeholders and team members can easily understand it. Likewise, it should demonstrate the functionality with key examples, that make things concrete and prevent misunderstanding. In this case, we'll use just one example -- when we want to greet the entire world, the greeting should be __Hello, World!__. In a real project, your specifications should have plenty of examples that demonstrate the functionality from all relevant perspectives.
+The specification document explains what you expect the system under test to do. Ideally, it explains it in a human readable-form, so that your stakeholders and team members can easily understand it. Likewise, it should demonstrate the functionality with key examples, that make things concrete and prevent misunderstanding. In this case, we'll use just one example -- when we want to greet the entire world, the greeting should be `Hello, World!`. In a real project, your specifications should have plenty of examples that demonstrate the functionality from all relevant perspectives.
 
 DaSpec can work on any MarkDown document, so you can explain the context nicely, include links to external resources and other specifications, even cross-link specifications. Any headers, block-quotes, lines with images and footnotes are just ignored. The remaining lines - plain text, links and tables, are parsed for examples to execute. In the Markdown syntax, a line starting with a hash (#) is a heading. So in the example below, the first line will be ignored and just copied to the output, and the second line will be executed.
-
 
     # this is a heading 
 
@@ -49,27 +48,24 @@ DaSpec can work on any MarkDown document, so you can explain the context nicely,
 
 Use headings and block-quotes to explain the purpose of the examples and help readers understand them better.
 
-
 ## Step definition
 
-To enable DaSpec to connect to the system under test, we need to give it a text pattern for the examples it needs to understand. In this case, we want it to understand the sentence __The right way to greet the World is "Hello, World!"__, and pull out the words __World__ and __Hello, World!__, using the first block as an argument, and the second one as the expected result of the function we're testing. To do that, we need to supply a step definition, using the DaSpec function __defineStep__. 
+To enable DaSpec to connect to the system under test, we need to give it a text pattern for the examples it needs to understand. In this case, we want it to understand the sentence `The right way to greet the World is "Hello, World!"`, and pull out the words `World` and `Hello, World!`, using the first block as an argument, and the second one as the expected result of the function we're testing. To do that, we need to supply a step definition, using the DaSpec function `defineStep`. 
 
-The function __defineStep__ has two arguments. The first one is the regular expression that will match the line, with groups in brackets to match the arguments and expectations. The second argument of __defineStep__ is a JavaScript function that will receive the extracted parameters and evaluate them.
+The function `defineStep` has two arguments. The first one is the regular expression that will match the line, with groups in brackets to match the arguments and expectations. The second argument of `defineStep` is a JavaScript function that will receive the extracted parameters and evaluate them.
 
     defineStep(/The right way to greet the (.*) is "(.*)"/, function (subject, expectedGreeting) {
     	var actualResult = greetingFor(subject);
-    	this.assertEquals(expectedGreeting, actualResult, 1);
+    	expect(actualResult).toEqual(expectedGreeting);
     });
 
-In this example, we're providing a definition for a step that will execute any lines matching __The right way to greet the ... is "..."__ format. The __(.*)__ syntax in a regular expression means any group of characters. So this step definition will also work for lines such as __The right way to greet the Sun is "Hello, Sun!"__ and similar. 
+In this example, we're providing a definition for a step that will execute any lines matching `The right way to greet the ... is "..."` format. The `(.*)` syntax in a regular expression means any group of characters. So this step definition will also work for lines such as `The right way to greet the Sun is "Hello, Sun!"` and similar. 
 
-DaSpec extracts the bracket groups from the regular expression match and passes them to the function defined in the step. So when the function from the step definition gets called using our earlier specification, the __subject__ argument will equal __World__, and the __expectedGreeting__ argument will equal __Hello, World!__.
+DaSpec extracts the bracket groups from the regular expression match and passes them to the function defined in the step. So when the function from the step definition gets called using our earlier specification, the `subject` argument will equal `World`, and the `expectedGreeting` argument will equal `Hello, World!`.
 
-From that point, the function can do whatever it needs to connect to the system under test. This part is under your control. So you can pre-populate database records, create files, connect to API endpoints using REST or just talk directly to another JavaScript object. In this simple case, we're calling the __greetingFor__ function directly.
+From that point, the function can do whatever it needs to connect to the system under test. This part is under your control. So you can pre-populate database records, create files, connect to API endpoints using REST or just talk directly to another JavaScript object. In this simple case, we're calling the `greetingFor` function directly.
 
-Finally, the step function runs an assertion, to compare the expected and the actual results. It uses the __assertEquals__ utility function to compare two values for equality. The order of arguments is very important for correct reporting. The first argument is the expected value, then the actual one. 
-
-The third, optional, argument to the __assertEquals__ function is the index of the value we're testing in the list of regular expression match groups. This allows DaSpec to report failures in a way that makes it easy to troubleshoot, by listing expected and actual values next to eachother in the right place of the result document. The index is zero-based. Because the expected greeting is in the second match group, zero-based index is 1.  
+Finally, the step function runs an assertion, to compare the expected and the actual results. It uses the `expect ... .toEqual` utility function to compare two values for equality. The order of arguments is very important for correct reporting. The argument to `expect` is the actual value, the argument to the `toEqual` is the expected value. 
 
 ## Results
 
