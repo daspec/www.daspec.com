@@ -1,4 +1,4 @@
-/* global FeedService, defineStep */
+/* global FeedService, defineStep, expect */
 var lastMessageId,
 	feedService = new FeedService();
 
@@ -22,11 +22,11 @@ defineStep(/When (.*) sends a message/, function (sender) {
 	lastMessageId = feedService.send(sender, 'Some text');
 });
 
-// DaSpec has a utility function that checks for missing and additional items in a set
+// DaSpec .toEqualSet matcher checks for missing and additional items in a set
 // you can use it on plain javascript arrays.
 // The list object has the items in the items property, so we can compare that directly
 defineStep(/appear in the feeds for/, function (expectedFeedsList) {
 	'use strict';
-	this.assertSetEquals(expectedFeedsList.items, feedService.getFeedsForMessageId(lastMessageId));
+	expect(feedService.getFeedsForMessageId(lastMessageId)).toEqualSet(expectedFeedsList.items);
 });
 

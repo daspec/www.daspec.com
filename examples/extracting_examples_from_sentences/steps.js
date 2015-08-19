@@ -1,16 +1,18 @@
-/*global defineStep, SalaryCalculator*/
+/*global defineStep, SalaryCalculator, expect*/
 
 // each line of markdown is evaluated against a regex - and the matching parts are passed to the function
 
 defineStep(/A (.*) with a (\d*) salary should get (\d*) as the end of year bonus/, function (role, salary, expectedBonus) {
 	'use strict';
 	var calculator = new SalaryCalculator();
-	// arguments are expected value, actual value, and the 0-based index of the related regex match group
-	this.assertEquals(expectedBonus, calculator.bonusFor(role, salary), 2);
+	// this expectation is related to an argument, so it will mark only the relevant
+	// part of the sentence as passed or failed
+	expect(calculator.bonusFor(role, salary)).toEqual(expectedBonus);
 });
 defineStep(/A (.*) with a (\d*) salary should get no bonus/, function (role, salary) {
 	'use strict';
 	var calculator = new SalaryCalculator();
-	// this will mark the whole line as passed or failed, as there is no match group index in the third argument
-	this.assertEquals(0, calculator.bonusFor(role, salary));
+	// this will mark the entire sentence as passed or failed because
+	// it's not related to a particular argument
+	expect(calculator.bonusFor(role, salary)).toEqual(0);
 });

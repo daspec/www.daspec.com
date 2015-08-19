@@ -1,4 +1,4 @@
-/*global defineStep, VATCalculator */
+/*global defineStep, VATCalculator, expect */
 
 var underTest = new VATCalculator();
 
@@ -9,9 +9,7 @@ defineStep(/Use EU VAT\?\s*\|$/, function (ipAddress, billing, delivery, shouldU
 	var designated = underTest.getDesignatedVATCountry(ipAddress, delivery, billing),
 	usingVAT = designated ? 'Yes' : 'No';
 
-	// we're matching on the fourth column in the table, 0-indexed, hence 3 as the last argument
-	// the order is important, first expected, then actual - for correct reporting
-	this.assertEquals(shouldUseVAT, usingVAT, 3);
+	expect(usingVAT).toEqual(shouldUseVAT);
 
 });
 
@@ -22,6 +20,6 @@ defineStep(/Use EU VAT\?\s*\|\s*Expected EU VAT Country/, function (ipAddress, b
 	usingVAT = designated ? 'Yes' : 'No';
 
 	// a table can have multiple output columns, just assert several times for different columns
-	this.assertEquals(shouldUseVAT, usingVAT, 3);
-	this.assertEquals(expectedCountry, designated, 4);
+	expect(usingVAT).toEqual(shouldUseVAT);
+	expect(designated).toEqual(expectedCountry);
 });
