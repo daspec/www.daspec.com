@@ -13,7 +13,7 @@ below the covers to see the example documents and source code:
 ## Start here
 
 {% for page in site.pages %}
-  {% if page.categories contains 'hello' %}
+  {% if page.categories contains 'start_here' %}
 * [{{page.title | capitalize}}]({{page.url}})
   {% endif %}
 {% endfor %}
@@ -26,15 +26,11 @@ below the covers to see the example documents and source code:
   {% endif %}
 {% endfor %}
 
-## Advanced tricks
+## Matchers
 
 {% for page in site.pages %}
-  {% if page.categories contains 'advanced' %}
-    <div class="item">
-      <h3>{{page.title}}</h3>
-      <p>{{page.description}}</p>  
-    </div>
+  {% if page.categories contains 'matchers' %}
+* [{{page.title | capitalize}}]({{page.url}})
   {% endif %}
 {% endfor %}
 
-TBD

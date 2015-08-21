@@ -43,7 +43,7 @@ Markdown formatters generally treat consecutive text lines as a single paragraph
     When the order is placed in the UK, but the delivery address is in Nigeria, 
 	the order risk score is 0.5
 
-DaSpec, however, makes a big difference between the two options. DaSpec evaluates each line of text independently as an example. This allows you to write several independent examples that will be tested separately, but get joined into a nice textual paragraph when the spec is converted to PDF or HTML. For an example of this in action, see [Extracting Examples from Sentences](../examples/extracting_examples_from_sentences).
+DaSpec, however, makes a big difference between the two options. DaSpec evaluates each line of text independently as an example. This allows you to write several independent examples that will be tested separately, but get joined into a nice textual paragraph when the spec is converted to PDF or HTML. For an example of this in action, see [Extracting Examples from Sentences](../examples/basic/extracting_examples_from_sentences).
 
 Ideally try to write each line of text as a complete example. Don't put more than one example into a single line, and don't break a single example across multiple lines unless you have to. Again, the automation component is flexible enough to handle such cases, but the developers that need to automate such specifications later will have a much easier job if you follow this guideline.
 

@@ -6,7 +6,7 @@ The purpose of this page is to get people started with automatic DaSpec specific
 
 If you're looking for information on how to write DaSpec documents, and you don't care about automating, don't bother with this page. Just start with [How To Write Specifications With DaSpec](how_to_write_specifications.md).
 
-<div class="alert alert-info"><h4>Try this example live in your browser!</h4> Follow the example and experiment with the values: <a href="../examples/hello_world">Hello World Example</a></div>
+<div class="alert alert-info"><h4>Try this example live in your browser!</h4> Follow the example and experiment with the values: <a href="../examples/start_here/hello_world">Hello World Example</a></div>
 
 ## Prerequisites
 
@@ -87,6 +87,6 @@ If the actual value coming out of the system under test differs from the expecta
 
 ## Where next?
 
-Try this [example in your browser](../examples/hello_world). Add lines to the specification, and try to word things differently and create another step definition that will match the different lines. 
+Try this [example in your browser](../examples/start_here/hello_world). Add lines to the specification, and try to word things differently and create another step definition that will match the different lines. 
 
 When you're ready to move on, see [Syntax Examples](../examples) for how to use tables and lists.

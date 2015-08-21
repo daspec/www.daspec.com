@@ -23,26 +23,24 @@ done
 mkdir $dest/examples
 mkdir $dest/_includes/examples
 
-for c in examples/*; do \
-  example=`basename $c`
-  title=`echo $example | sed 's/_/ /g'`
+for cat in examples/*; do 
+  category=`basename $cat`
+  for c in $cat/*; do
+    example=`basename $c`
+    title=`echo $example | sed 's/_/ /g'`
 
-  if [ $example == "hello_world" ]; then 
-    categories="hello"
-  else 
-    categories="basic"
-  fi
-  cat > $dest/examples/$example.md  << EOF 
+    cat > $dest/examples/$example.md  << EOF 
 ---
 title: $title
 layout: example 
-example: $example
-categories: [$categories]
-permalink: /examples/$example/
+example: $category/$example
+categories: [$category]
+permalink: /examples/$category/$example/
 ---
 EOF
 
-sed s/\.md\)/\.html\)/g $c/README.md >>  $dest/examples/$example.md
+    sed s/\.md\)/\.html\)/g $c/README.md >>  $dest/examples/$example.md
+  done
 done
 
 cp -r examples $dest/_includes

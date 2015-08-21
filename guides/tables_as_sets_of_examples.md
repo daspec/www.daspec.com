@@ -8,7 +8,7 @@ When you want table rows to represent individual examples, do this:
  2. List example values as rows in the table
  3. Ensure that the first non-empty line directly above the table is not an executable step. (Tables preceded by an executable text line are not processed as sets of individual examples, but as [lists of objects](lists_of_objects.md)). For example, use a heading (line starting with #) or a blockquote (line starting with >).
 
-[Example: Tables As Sets Of Examples](../examples/tables_as_sets_of_examples)
+[Example: Tables As Sets Of Examples](../examples/basic/tables_as_sets_of_examples)
 
 ## Step implementation
 
