@@ -27,6 +27,6 @@ defineStep(/When (.*) sends a message/, function (sender) {
 // The list object has the items in the items property, so we can compare that directly
 defineStep(/appear in the feeds for/, function (expectedFeedsList) {
 	'use strict';
-	expect(feedService.getFeedsForMessageId(lastMessageId)).toEqualSet(expectedFeedsList.items);
+	expect(feedService.getFeedsForMessageId(lastMessageId)).toEqualSet(expectedFeedsList);
 });
 

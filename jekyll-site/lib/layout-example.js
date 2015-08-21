@@ -82,7 +82,7 @@ var runDaSpec = function (spec, steps, systemUnderTest) {
 			btn.siblings('input[type=radio][format=' + btn.attr('target-format') + ']').prop('checked', true);
 		});
 		$('[data-toggle="tooltip"]').tooltip();
-
+		$('#spectab').tab('show');
 	};
 
 window.addEventListener('load', daspecExamplePageLoad);

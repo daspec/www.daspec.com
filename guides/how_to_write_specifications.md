@@ -2,15 +2,15 @@
 
 A specification in DaSpec is just a plain text file, in the [markdown syntax](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet). DaSpec can automate almost any markdown document, so there is no particular structure forced on users. Generally, you should think about the following ideas:
 
-1. Make the document easy to read and understand, don't limit yourself to an existing set of automation components. DaSpec makes automation easy.
-2. Describe a single feature in a single file. This will make it easy to discover things later and help you work with documents in the future. If a feature is too big to describe in a single file, put all related features in a single folder. 
-3. Start with a descriptive title and a quick introduction. Use Markdown headings and block-quotes for that. For example:
+* Make the document easy to read and understand, don't limit yourself to an existing set of automation components. DaSpec makes automation easy.
+* Describe a single feature in a single file. This will make it easy to discover things later and help you work with documents in the future. If a feature is too big to describe in a single file, put all related features in a single folder. 
+* Start with a descriptive title and a quick introduction. Use Markdown headings and block-quotes for that. For example:
     
 `# Payment fraud checks`
 
 `> transactions should be scored according to the country of purchase and country of delivery.`
 
-4. Add realistic examples that will illustrate the feature and help to avoid misunderstanding. Aim to make things concrete enough that people could easily complain if they disagree, and so that your examples can clarify all the important edge cases. 
+* Add realistic examples that will illustrate the feature and help to avoid misunderstanding. Aim to make things concrete enough that people could easily complain if they disagree, and so that your examples can clarify all the important edge cases. 
 
 ## Specifying testable examples 
 

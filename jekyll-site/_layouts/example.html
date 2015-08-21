@@ -5,13 +5,16 @@ layout: page
 <div>{{content}}</div>
 <div>
 	<ul class="nav nav-tabs" role="tablist">
-		<li class="active"><a href="#spec" role="tab" data-toggle="tab">Specification</a></li>
+		<li ><a id="spectab" href="#spec" role="tab" data-toggle="tab">Specification</a></li>
 		<li ><a href="#steps" role="tab" data-toggle="tab">Step definitions</a></li>
 		<li ><a href="#sut" role="tab" data-toggle="tab">System under test</a></li>
 		<li ><a id="runButton" href="#result" role="tab" data-toggle="tab">&#9654; Result</a></li>
   	</ul>
 <div class="tab-content">
-	<div role="tabpanel" class="tab-pane fade in active" id="spec">
+	<div role="tabpanel" class="tab-pane active" id="loading">
+			<div id="loading" class="examples">Loading ...</div>
+	</div>
+	<div role="tabpanel" class="tab-pane fade in" id="spec">
 		<span class="tabpanel-intro">This specification will be executed when you open the Result tab.</span>
 		<div class="format-areas">
 			<input type="radio" name="source-format" format="html">
@@ -22,7 +25,7 @@ layout: page
 			<button class="top-button eye-closed" visible-format="html" target-format="md"
 				data-toggle="tooltip" data-placement="left" title="Show Markdown source"					
 				></button>
-			<div id="markdownArea" class="examples" visible-format="md">{% include {{page.example | prepend: 'examples/'  |  append: '/spec.md' }} %}</div>
+			<div id="markdownArea" class="examples hide" visible-format="md">{% include {{page.example | prepend: 'examples/'  |  append: '/spec.md' }} %}</div>
 			<div id="formattedMarkdownArea" class="examples" visible-format="html"></div>
 		</div>
 	</div>
