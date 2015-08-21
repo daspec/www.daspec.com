@@ -23,9 +23,9 @@ layout: page
 				data-toggle="tooltip" data-placement="left" title="Show formatted preview"
 				></button>
 			<button class="top-button eye-closed" visible-format="html" target-format="md"
-				data-toggle="tooltip" data-placement="left" title="Show Markdown source"					
+				data-toggle="tooltip" data-placement="left" title="Show Markdown source"
 				></button>
-			<div id="markdownArea" class="examples hide" visible-format="md">{% include {{page.example | prepend: 'examples/'  |  append: '/spec.md' }} %}</div>
+			<div id="markdownArea" class="examples" visible-format="md">{% include {{page.example | prepend: 'examples/'  |  append: '/spec.md' }} %}</div>
 			<div id="formattedMarkdownArea" class="examples" visible-format="html"></div>
 		</div>
 	</div>
@@ -66,7 +66,7 @@ layout: page
 				data-toggle="tooltip" data-placement="left" title="Show formatted preview"
 				></button>
 			<button class="top-button eye-closed" visible-format="html" target-format="md"
-				data-toggle="tooltip" data-placement="left" title="Show Markdown source"					
+				data-toggle="tooltip" data-placement="left" title="Show Markdown source"
 				></button>
 			<div id="outputArea" class="examples" visible-format="md"></div>
 			<div id="formattedOutputArea" class="examples" visible-format="html"></div>

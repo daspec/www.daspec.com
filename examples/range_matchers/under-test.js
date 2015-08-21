@@ -1,0 +1,1 @@
+var pageLoadTime = 4;
