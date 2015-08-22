@@ -7,8 +7,7 @@ permalink: /examples/
 
 # Try DaSpec in your browser
 
-Key DaSpec syntax examples work directly in your browser. Here is a list of things you can try out immediately, and peek
-below the covers to see the example documents and source code:
+Here is a list of things you can try out immediately, and peek below the covers to see the example documents and source code:
 
 ## Start here
 

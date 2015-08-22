@@ -1,7 +1,6 @@
-# Good practices for automating steps
+# Good step automation practices
 
-The automation code between the specifications and the system under test is the necessary link to make the DaSpec magic work, and for your team to get the most out of [executable specifications](executable_specifications.md). Here are some overall guidelines how to automate step execution:
-
+The automation code between the specifications and the system under test is the necessary link to make the DaSpec magic work, and for your team to get the most out of [executable specifications](executable_specifications.md). Here are some overall guidelines to keep in mind while automating step execution.
 
 ## Avoid enforcing automation patterns on people who write specifications
 
