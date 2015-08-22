@@ -71,6 +71,16 @@ The two default formatters are:
 * __daspec/formatters/markdown-files__ -- prints markdown results to files in the output dir
 * __daspec/formatters/console__ -- simple summary in the console
 
+## Setting up custom matchers
+
+You can add additional expectation matchers to DaSpec by listing the NPM module names using the `--matchers` argument, or adding them to the `matchers` key of the config file. For example, here is how the [daspec-js-npm-example](https://github.com/daspec/daspec-js-npm-example) project adds the [quantity matcher](https://github.com/daspec/daspec-js-quantity-matcher):
+
+    {
+      ...
+      "matchers": ["daspec-quantity-matcher"]
+      ...
+    }
+
 ## Continuous integration
 
 Both the console tool and the NPM script set-up will report a non-zero exit code in case of any failures or exceptions during processing. This means that you can use those scripts straight away in a continuous integration setup. However, it's a good idea to change the standard list of formatters to something more easily machine consumable. 

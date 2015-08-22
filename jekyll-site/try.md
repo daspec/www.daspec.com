@@ -33,3 +33,11 @@ Here is a list of things you can try out immediately, and peek below the covers 
   {% endif %}
 {% endfor %}
 
+## Advanced tricks 
+
+{% for page in site.pages %}
+  {% if page.categories contains 'advanced' %}
+* [{{page.title | capitalize}}]({{page.url}})
+  {% endif %}
+{% endfor %}
+
