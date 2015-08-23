@@ -10,7 +10,7 @@ Here is the list of pre-built matchers:
 
 ## Equality matchers
 
-* `expect(actual).toEqual(expected)`: The argument can be a primitive value, an object or an array. Objects and arrays are compared recursively through elements and properties, disregarding functions. [See this matcher in action](../examples/matchers/equality_matchers/)
+* `expect(actual).toEqual(expected)`: The argument can be a primitive value, an object or an array. Objects and arrays are compared recursively through elements and properties. [See this matcher in action](../examples/matchers/equality_matchers/)
 
 ## Range matchers
 

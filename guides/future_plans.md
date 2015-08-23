@@ -1,7 +1,3 @@
----
-title:  Future plans
-layout: page 
----
 # Future plans
 
 These are the things we plan to work on in the near future:

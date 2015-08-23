@@ -73,7 +73,7 @@ The two default formatters are:
 
 ## Setting up custom matchers
 
-You can add additional expectation matchers to DaSpec by listing the NPM module names using the `--matchers` argument, or adding them to the `matchers` key of the config file. For example, here is how the [daspec-js-npm-example](https://github.com/daspec/daspec-js-npm-example) project adds the [quantity matcher](https://github.com/daspec/daspec-js-quantity-matcher):
+You can add additional expectation matchers to DaSpec by listing the NPM module names using the `--matchers` argument, or adding them to the `matchers` key of the config file. For example, here is how the [daspec-js-npm-example](https://github.com/daspec/daspec-js-npm-example) project adds the [quantity matchers](https://github.com/daspec/daspec-js-quantity-matchers):
 
     {
       ...

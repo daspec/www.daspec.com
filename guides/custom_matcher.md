@@ -2,6 +2,11 @@
 
 You can make expectations for complex domain objects or project-specific values easier to read and manage using your own expectation matchers. This page explains how to define and install matcher functions.
 
+* [Defining a custom matcher for DaSpec](#defining-a-custom-matcher-for-daspec)
+* [Unit-testing matchers](#unit-testing-matchers)
+* [Adding matchers directly in step files](#adding-matchers-directly-with-steps)
+* [Adding matchers using NPM modules](#adding-matchers-using-npm-modules)
+
 ## Creating a new matcher function
 
 Your matcher function will be called by DaSpec in the context of an [`Expect`](https://github.com/daspec/daspec-js/blob/master/src/expect.js) object. The most important things to know about this are:
@@ -24,11 +29,38 @@ This allows you to work on your domain objects and evaluate assertions. Here is 
 
     function (minimumMargin){
 	    var workshop = this.actual;
-	    this.addAssertion(workshop.profit()>= (minimumMargin * workshop.revenue() / 100));
+	    this.addAssertion(workshop.profit() >= (minimumMargin * workshop.revenue() / 100));
 	    return this;
     }
 
-## Adding matchers directly with steps
+## Unit-testing matchers
+
+The best way to unit-test a matcher is to include the [`ExpectationBuilder`](https://github.com/daspec/daspec-js/blob/master/src/expectation-builder.js) class from the `daspec-core` NPM package, initialise it with your new matcher, then execute an expectation using the new matcher, and check for the resulting assertion in the `assertions` property of the builder. Here is an annotated example from the [Quantity Matchers](https://github.com/daspec/daspec-js-quantity-matchers) project.
+
+    beforeEach(function () {
+      // prepare the builder 
+      // - the first argument is an array of step arguments - not relevant for unit testing matchers
+      // - the second argument is the set of key-value pairs of the new matchers that will be loaded
+      //   in this case, quantityMatchers will have { 'quantityToEqual': function () { ... } }
+      underTest = new ExpectationBuilder([], quantityMatchers);
+    });
+    describe('quantityToEqual', function () {
+      it('adds an assertion for two quantities with units', function () {
+        
+        // run the expectation using the new matcher
+        var result = underTest.expect('10 m').quantityToEqual('1000 cm');
+			  
+        // check that the matcher added an assertion
+        expect(result.assertions.length).toBe(1);
+
+        // check that the assertion passed
+        expect(result.assertions[0].passed).toBe(true);
+
+        // check that the assertion correctly logged the expected value
+        expect(result.assertions[0].expected).toEqual('1000 cm');
+      });
+
+## Adding matchers directly in step files
 
 The first option for making the matchers available to your steps is to simply call the `addMatchers` method in any step definition file, and pass a key-value map where the keys are the matcher names, and the values are the respective matcher functions. For example:
 
@@ -44,6 +76,6 @@ This option is good if you want to define something locally for a set of steps, 
 
 ## Adding matchers using NPM modules
 
-The second option for making matchers available to your steps is to supply a list of NPM module names that contain matchers to the console runner, using the `--matchers` command line argument, or the `matchers` key in the config file. Save your matcher object as a node module, and export the functions that you want to use for matchers. For an example, see the [quantity matcher](https://github.com/daspec/daspec-js-quantity-matcher).
+The second option for making matchers available to your steps is to supply a list of NPM module names that contain matchers to the console runner, using the `--matchers` command line argument, or the `matchers` key in the config file. Save your matcher object as a node module, and export the functions that you want to use for matchers. For an example, see the [quantity matchers](https://github.com/daspec/daspec-js-quantity-matchers). 
 
-Check out the [daspec-js-npm-example](https://github.com/daspec/daspec-js-npm-example) project to see custom matchers loaded using NPM modules in action. 
+This is a good option for loading third-party matcher libraries, or sharing a matcher library across multiple projects easily.  Check out the [daspec-js-npm-example](https://github.com/daspec/daspec-js-npm-example) project to see custom matchers loaded using NPM modules in action. 
