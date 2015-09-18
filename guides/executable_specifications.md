@@ -21,7 +21,7 @@ In the context-driven testing terminology, they can be an effective way for the 
 
 ![](images/quadrants_small.png)
 
-On the spectrum of tests that a team might consider, executable specifications are most useful for the business-oriented tests checking for expected outcomes -- the upper-right corner of the testing quadrants. For tests looking at things from a technical perspective, all the interested readers know the relevant programming language and testing tools, so it's easier and faster to just use a technical tool, typically the unit testing framework that the team is familiar with. For tests looking at non-deterministic and exploring unexpected results, it's not practical to capture the expectations (otherwise they would be expected outcomes), so any kind of automation would not be looking at the system from the right perspective.
+On the spectrum of tests that a team might consider, executable specifications are most useful for the business-oriented tests checking for expected outcomes -- the upper-left corner of the testing quadrants. For tests looking at things from a technical perspective, all the interested readers know the relevant programming language and testing tools, so it's easier and faster to just use a technical tool, typically the unit testing framework that the team is familiar with. For tests looking at non-deterministic and exploring unexpected results, it's not practical to capture the expectations (otherwise they would be expected outcomes), so any kind of automation would not be looking at the system from the right perspective.
 
 ## How to get the most out of Executable Specifications?
 
