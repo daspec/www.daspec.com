@@ -33,11 +33,11 @@ var runDaSpec = function (spec, steps, systemUnderTest) {
 					alertClass = 'alert-warning';
 				} else if (counts.passed) {
 					alertClass = 'alert-success';
-				} else {
+				} else if (!counts.running) {
 					alertClass = 'alert-warning';
 					counts.noexec = 1;
 				}
-				$('#outputSummary').removeClass('alert-warning alert-success alert-danger').addClass(alertClass);
+				$('#outputSummary').show().removeClass('alert-warning alert-success alert-danger').addClass(alertClass);
 				Object.keys(counts).forEach(function (key) {
 					var field = $('#outputSummary [role=' + key + ']');
 					if (counts[key] || undefined) {
@@ -48,12 +48,18 @@ var runDaSpec = function (spec, steps, systemUnderTest) {
 				});
 			},
 			rerun = function () {
+				$('#outputSummary').hide();
+				$('#runningAlert').show();
+				outputEditor.setValue('');
+				formattedOutputArea.innerHTML = '';
 				runDaSpec(specEditor.getValue(), stepsEditor.getValue(), sutEditor.getValue()).then(function (result) {
+					$('#runningAlert').hide();
 					outputEditor.setValue(result.text);
 					updateAlert(result.counts);
 					formattedOutputArea.innerHTML = converter.makeHtml(result.text);
 				}, function (e) {
 					var text = '    ' + (e.stack || e.message || e.name || 'there was a problem executing the specification');
+					$('#runningAlert').hide();
 					outputEditor.setValue(text);
 					formattedOutputArea.innerHTML = converter.makeHtml(text);
 				});
