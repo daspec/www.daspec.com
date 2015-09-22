@@ -22,7 +22,7 @@
     "tests"
   ],
   "dependencies": {
-    "daspec": ">=0.0.10",
+    "daspec": ">=1.1.1",
     "showdown": "~1.2.2",
     "bootstrap": "~3.3.5",
     "ace-builds": "~1.2.0"
