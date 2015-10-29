@@ -4,7 +4,7 @@ The automation code between the specifications and the system under test is the 
 
 ## Avoid enforcing automation patterns on people who write specifications
 
-Many teams make a mistake of trying to optimise the number of automation steps, and once there is a single way of writing something, enforce that structure in all related specifications. DaSpec's allows people to automate the validation of natural-language text, which means that your specifications can read nicely, and be designed for humans and not for robots. By enforcing a structure of specifications around existing automation components, teams just lose that value.
+Many teams make a mistake of trying to optimise the number of automation steps, and once there is a single way of writing something, enforce that structure in all related specifications. DaSpec allows people to automate the validation of natural-language text, which means that your specifications can read nicely, and be designed for humans and not for robots. By enforcing a structure of specifications around existing automation components, teams just lose that value.
 
 Work together with a team to evolve a domain language -- names, relationships and concepts -- and allow for flexibility in the structure of sentences using those concepts. Avoid using seven different names to describe the same concept, but allow for different sentence or table structures that use your domain language consistently. That way you'll allow people to focus on the key attributes and aspects of a domain concept that are useful in a particular situation.
 
@@ -34,7 +34,7 @@ In order to make this work, use the expected values from examples directly in th
 
     };
 
-use the `allowedRange` argument directly in the expectation, and move the computations to the `expect` part. This would allow DaSpec to display failures more narrowly:
+use the `allowedValue` argument directly in the expectation, and move the computations to the `expect` part. This would allow DaSpec to display failures more narrowly:
 
 
     defineStep(/ .... /, allowedValue) {
